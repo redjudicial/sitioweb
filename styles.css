@@ -2887,12 +2887,20 @@ a:hover, .nav-link:hover, .footer-link:hover, .footer-clean a:hover {
  
 /* Ajuste para evitar desbordes en secciones principales */
 .pricing-grid,
-.comparison-section,
 .contact-content {
   width: 100%;
   max-width: 1200px;
   box-sizing: border-box;
   margin: 0 auto;
+  padding: 0 20px;
+}
+
+.comparison-section {
+  width: 100%;
+  max-width: 1200px;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
   padding: 0 20px;
 }
  
