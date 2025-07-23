@@ -1,0 +1,20 @@
+# Archivos de entorno y credenciales
+.env
+APIS_Y_CREDENCIALES.env
+
+# Logs
+server.log
+*.log
+
+# Dependencias Node.js
+node_modules/
+
+# Archivos minificados y generados
+*.min.js
+*.min.css
+
+# Claves privadas
+*.pem
+
+# Otros archivos temporales
+.DS_Store 

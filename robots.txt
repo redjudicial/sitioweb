@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /index.html
+Allow: /estudiantes.html
+Disallow: /acceso/
+Sitemap: https://www.redjudicial.cl/sitemap.xml 

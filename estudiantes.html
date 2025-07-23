@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Red Judicial Estudiantes - Tu Plataforma de Aprendizaje Jurídico</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'judicial-blue': '#1e40af',
+            'judicial-purple': '#7c3aed',
+            'judicial-pink': '#ec4899',
+            'judicial-orange': '#f97316',
+          },
+          fontFamily: {
+            'inter': ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .gradient-bg {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    .float-animation {
+      animation: floating 3s ease-in-out infinite;
+    }
+    @keyframes floating {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    .pulse-glow {
+      animation: pulse-glow 2s infinite;
+    }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(124, 58, 237, 0.4); }
+      50% { box-shadow: 0 0 40px rgba(124, 58, 237, 0.8); }
+    }
+    .slide-in-left {
+      animation: slideInLeft 1s ease-out;
+    }
+    @keyframes slideInLeft {
+      from { transform: translateX(-100px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    .slide-in-right {
+      animation: slideInRight 1s ease-out;
+    }
+    @keyframes slideInRight {
+      from { transform: translateX(100px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    .bounce-in {
+      animation: bounceIn 1.5s ease-out;
+    }
+    @keyframes bounceIn {
+      0% { transform: scale(0.3); opacity: 0; }
+      50% { transform: scale(1.05); }
+      70% { transform: scale(0.9); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body class="font-inter">
+  
+  <!-- HEADER -->
+  <header class="header">
+    <nav class="nav">
+      <div class="nav-container">
+        <div class="logo">
+          <img src="logo-original.png" alt="Logo Red Judicial, plataforma legal y networking para abogados en Chile" class="logo-img" loading="lazy" />
+        </div>
+        <div class="hidden md:flex space-x-8">
+          <a href="#beneficios" class="text-gray-700 hover:text-judicial-blue transition">Beneficios</a>
+          <a href="#como-funciona" class="text-gray-700 hover:text-judicial-blue transition">Funcionamiento</a>
+          <a href="#testimonios" class="text-gray-700 hover:text-judicial-blue transition">Testimonios</a>
+          <a href="#planes" class="text-gray-700 hover:text-judicial-blue transition">Planes</a>
+          <a href="#ejerciendo" class="text-gray-700 hover:text-judicial-blue transition">¿Estás ejerciendo?</a>
+          <a href="/estudiantes.html" class="nav-link">¿Eres Estudiante?</a>
+        </div>
+        <a href="/acceso/" class="btn-login">Ingreso</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="pt-24 pb-20 px-4 min-h-screen flex items-center gradient-bg relative overflow-hidden">
+    <!-- Animated background elements -->
+    <div class="absolute inset-0">
+      <div class="absolute top-20 left-20 w-64 h-64 bg-white/10 rounded-full float-animation"></div>
+      <div class="absolute bottom-20 right-20 w-48 h-48 bg-white/10 rounded-full float-animation" style="animation-delay: 1s;"></div>
+      <div class="absolute top-1/2 left-1/4 w-32 h-32 bg-white/10 rounded-full float-animation" style="animation-delay: 2s;"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto relative z-10">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Left Column - Text -->
+        <div class="text-white slide-in-left">
+          <div class="inline-flex items-center bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
+            <i class="fas fa-graduation-cap text-xl mr-2 text-judicial-orange"></i>
+            <span class="text-sm font-medium">Para Estudiantes de Derecho</span>
+          </div>
+          
+          <h1 class="text-5xl lg:text-6xl font-black mb-6 leading-tight">
+            Aprende Derecho<br>
+            <span class="text-judicial-orange">como un Pro</span>
+          </h1>
+          
+          <p class="text-xl mb-8 text-white/90 leading-relaxed">
+            La plataforma de aprendizaje jurídico más completa de Chile. 
+            Desde tu primer ramo hasta tu práctica profesional.
+          </p>
+          
+          <div class="flex flex-col sm:flex-row gap-4 mb-8">
+            <button class="bg-judicial-orange text-white font-bold py-4 px-8 rounded-full hover:bg-orange-600 transition transform hover:scale-105 pulse-glow">
+              <i class="fas fa-rocket mr-2"></i>Empezar Gratis
+            </button>
+            <button class="bg-white/20 backdrop-blur-sm text-white font-bold py-4 px-8 rounded-full hover:bg-white/30 transition">
+              <i class="fas fa-video mr-2"></i>Ver Demo
+            </button>
+          </div>
+          
+          <div class="flex items-center space-x-6 text-white/80">
+            <div class="flex items-center">
+              <i class="fas fa-star text-xl mr-2"></i>
+              <span class="font-semibold">4.9/5</span>
+            </div>
+            <div class="flex items-center">
+              <i class="fas fa-users text-xl mr-2"></i>
+              <span class="font-semibold">5,000+ estudiantes</span>
+            </div>
+            <div class="flex items-center">
+              <i class="fas fa-book text-xl mr-2"></i>
+              <span class="font-semibold">100+ recursos</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Right Column - Visual -->
+        <div class="slide-in-right">
+          <div class="relative">
+            <div class="bg-white rounded-3xl p-8 shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
+              <div class="text-center">
+                <div class="w-16 h-16 bg-gradient-to-r from-judicial-blue to-judicial-purple rounded-full flex items-center justify-center mx-auto mb-4">
+                  <i class="fas fa-book-open text-2xl text-white"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-judicial-blue mb-4">Tu Biblioteca Jurídica</h3>
+                <div class="space-y-3">
+                  <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <span class="font-medium">Derecho Civil I</span>
+                    <span class="text-green-500 font-bold"><i class="fas fa-check-circle mr-1"></i>Completado</span>
+                  </div>
+                  <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <span class="font-medium">Derecho Penal</span>
+                    <span class="text-blue-500 font-bold"><i class="fas fa-book-reader mr-1"></i>Estudiando</span>
+                  </div>
+                  <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <span class="font-medium">Procesal Civil</span>
+                    <span class="text-gray-400"><i class="fas fa-lock mr-1"></i>Próximamente</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFITS SECTION -->
+  <section id="beneficios" class="py-20 px-4 bg-gray-50">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-black text-judicial-blue mb-4">
+          ¿Qué hace especial a Red Judicial? <i class="fas fa-lightbulb text-judicial-orange"></i>
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          No somos otra plataforma más. Somos tu compañero de estudios inteligente que se adapta a tu ritmo y necesidades.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Benefit 1 -->
+        <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow bounce-in" style="animation-delay: 0.1s;">
+          <div class="w-16 h-16 bg-gradient-to-r from-judicial-blue to-judicial-purple rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-brain text-2xl text-white"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-judicial-blue mb-3">IA Jurídica Inteligente</h3>
+          <p class="text-gray-600 mb-4">Un asistente que entiende de leyes, no un chatbot cualquiera. Respuestas precisas y contextualizadas.</p>
+          <div class="bg-blue-50 p-3 rounded-lg">
+            <p class="text-sm text-judicial-blue font-medium"><i class="fas fa-lightbulb mr-1"></i>Tip: Pregúntale sobre casos complejos y verás la diferencia</p>
+          </div>
+        </div>
+        
+        <!-- Benefit 2 -->
+        <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow bounce-in" style="animation-delay: 0.2s;">
+          <div class="w-16 h-16 bg-gradient-to-r from-judicial-purple to-judicial-pink rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-file-alt text-2xl text-white"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-judicial-purple mb-3">Exámenes Reales</h3>
+          <p class="text-gray-600 mb-4">Practica con preguntas de exámenes reales de universidades. Simulacros que realmente preparan.</p>
+          <div class="bg-purple-50 p-3 rounded-lg">
+            <p class="text-sm text-judicial-purple font-medium"><i class="fas fa-bullseye mr-1"></i>Precisión del 95% en predicción de notas</p>
+          </div>
+        </div>
+        
+        <!-- Benefit 3 -->
+        <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow bounce-in" style="animation-delay: 0.3s;">
+          <div class="w-16 h-16 bg-gradient-to-r from-judicial-pink to-judicial-orange rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-handshake text-2xl text-white"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-judicial-pink mb-3">Red de Contactos</h3>
+          <p class="text-gray-600 mb-4">Conecta con abogados reales, encuentra prácticas profesionales y construye tu futuro desde ahora.</p>
+          <div class="bg-pink-50 p-3 rounded-lg">
+            <p class="text-sm text-judicial-pink font-medium"><i class="fas fa-trophy mr-1"></i>85% consigue práctica en su primer intento</p>
+          </div>
+        </div>
+        
+        <!-- Benefit 4 -->
+        <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow bounce-in" style="animation-delay: 0.4s;">
+          <div class="w-16 h-16 bg-gradient-to-r from-judicial-orange to-judicial-blue rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-books text-2xl text-white"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-judicial-orange mb-3">Contenido de Calidad</h3>
+          <p class="text-gray-600 mb-4">Apuntes, resúmenes y casos prácticos creados por profesores y estudiantes destacados.</p>
+          <div class="bg-orange-50 p-3 rounded-lg">
+            <p class="text-sm text-judicial-orange font-medium"><i class="fas fa-chart-line mr-1"></i>Mejora promedio de 1.2 puntos en notas</p>
+          </div>
+        </div>
+        
+        <!-- Benefit 5 -->
+        <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow bounce-in" style="animation-delay: 0.5s;">
+          <div class="w-16 h-16 bg-gradient-to-r from-judicial-blue to-judicial-purple rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-medal text-2xl text-white"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-judicial-blue mb-3">Sistema de Ranking</h3>
+          <p class="text-gray-600 mb-4">Compite sanamente, destaca tu talento y accede a oportunidades exclusivas.</p>
+          <div class="bg-blue-50 p-3 rounded-lg">
+            <p class="text-sm text-judicial-blue font-medium"><i class="fas fa-award mr-1"></i>Top 10% accede a becas y convenios</p>
+          </div>
+        </div>
+        
+        <!-- Benefit 6 -->
+        <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow bounce-in" style="animation-delay: 0.6s;">
+          <div class="w-16 h-16 bg-gradient-to-r from-judicial-purple to-judicial-pink rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-target text-2xl text-white"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-judicial-purple mb-3">Aprendizaje Personalizado</h3>
+          <p class="text-gray-600 mb-4">La plataforma se adapta a tu nivel, identifica tus debilidades y refuerza tus fortalezas.</p>
+          <div class="bg-purple-50 p-3 rounded-lg">
+            <p class="text-sm text-judicial-purple font-medium"><i class="fas fa-microscope mr-1"></i>Algoritmo de aprendizaje adaptativo</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="como-funciona" class="py-20 px-4 bg-white">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-black text-judicial-blue mb-4">
+          ¿Cómo funciona? Es súper fácil <i class="fas fa-smile-wink text-judicial-orange"></i>
+        </h2>
+        <p class="text-xl text-gray-600">
+          En 3 pasos simples pasas de ser un estudiante promedio a destacar en tu carrera
+        </p>
+      </div>
+      
+      <div class="grid lg:grid-cols-3 gap-12">
+        <!-- Step 1 -->
+        <div class="text-center">
+          <div class="relative mb-8">
+            <div class="bg-gradient-to-r from-judicial-blue to-judicial-purple w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-4 float-animation">
+              <span class="text-3xl font-black text-white">1</span>
+            </div>
+            <div class="absolute -top-2 -right-2 w-8 h-8 bg-judicial-orange rounded-full flex items-center justify-center">
+              <i class="fas fa-rocket text-white text-sm"></i>
+            </div>
+          </div>
+          <h3 class="text-2xl font-bold text-judicial-blue mb-4">Regístrate Gratis</h3>
+          <p class="text-gray-600 text-lg">
+            Crea tu cuenta en menos de 2 minutos. No necesitas tarjeta de crédito, 
+            solo tu email y ganas de aprender.
+          </p>
+        </div>
+        
+        <!-- Step 2 -->
+        <div class="text-center">
+          <div class="relative mb-8">
+            <div class="bg-gradient-to-r from-judicial-purple to-judicial-pink w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-4 float-animation" style="animation-delay: 0.5s;">
+              <span class="text-3xl font-black text-white">2</span>
+            </div>
+            <div class="absolute -top-2 -right-2 w-8 h-8 bg-judicial-purple rounded-full flex items-center justify-center">
+              <i class="fas fa-bullseye text-white text-sm"></i>
+            </div>
+          </div>
+          <h3 class="text-2xl font-bold text-judicial-purple mb-4">Explora y Aprende</h3>
+          <p class="text-gray-600 text-lg">
+            Accede a todo nuestro contenido, toma exámenes de práctica y 
+            usa nuestra IA jurídica para resolver dudas.
+          </p>
+        </div>
+        
+        <!-- Step 3 -->
+        <div class="text-center">
+          <div class="relative mb-8">
+            <div class="bg-gradient-to-r from-judicial-pink to-judicial-orange w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-4 float-animation" style="animation-delay: 1s;">
+              <span class="text-3xl font-black text-white">3</span>
+            </div>
+            <div class="absolute -top-2 -right-2 w-8 h-8 bg-judicial-pink rounded-full flex items-center justify-center">
+              <i class="fas fa-trophy text-white text-sm"></i>
+            </div>
+          </div>
+          <h3 class="text-2xl font-bold text-judicial-orange mb-4">Destaca y Conecta</h3>
+          <p class="text-gray-600 text-lg">
+            Sube en el ranking, conecta con profesionales y 
+            accede a oportunidades de práctica profesional.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Progress Bar -->
+      <div class="mt-16 max-w-2xl mx-auto">
+        <div class="bg-gray-200 rounded-full h-2 overflow-hidden">
+          <div class="bg-gradient-to-r from-judicial-blue via-judicial-purple to-judicial-orange h-full w-full rounded-full" style="animation: progress 3s ease-in-out infinite;"></div>
+        </div>
+        <p class="text-center mt-4 text-gray-600 font-medium">Tu progreso se mide en cada paso <i class="fas fa-chart-bar text-judicial-blue"></i></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonios" class="py-20 px-4 bg-gradient-to-r from-blue-50 to-purple-50">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-black text-judicial-blue mb-4">
+          Esto dicen nuestros estudiantes <i class="fas fa-comments text-judicial-purple"></i>
+        </h2>
+        <p class="text-xl text-gray-600">
+          Resultados reales de estudiantes reales. Sin filtros, sin mentiras.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Testimonial 1 -->
+        <div class="bg-white rounded-2xl p-8 shadow-lg transform hover:scale-105 transition-transform">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-judicial-blue to-judicial-purple rounded-full flex items-center justify-center">
+              <span class="text-white font-bold">C</span>
+            </div>
+            <div class="ml-4">
+              <h4 class="font-bold text-judicial-blue">Camila Rodríguez</h4>
+              <p class="text-gray-600 text-sm">U. de Chile, 4° año</p>
+            </div>
+          </div>
+          <div class="text-yellow-400 text-xl mb-3">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="text-gray-700 italic">
+            "Los exámenes de práctica me salvaron el semestre. 
+            Subí de 4.5 a 6.2 en Procesal Civil. ¡La IA jurídica es increíble!"
+          </p>
+        </div>
+        
+        <!-- Testimonial 2 -->
+        <div class="bg-white rounded-2xl p-8 shadow-lg transform hover:scale-105 transition-transform">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-judicial-purple to-judicial-pink rounded-full flex items-center justify-center">
+              <span class="text-white font-bold">T</span>
+            </div>
+            <div class="ml-4">
+              <h4 class="font-bold text-judicial-purple">Tomás Silva</h4>
+              <p class="text-gray-600 text-sm">U. Católica, 3° año</p>
+            </div>
+          </div>
+          <div class="text-yellow-400 text-xl mb-3">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="text-gray-700 italic">
+            "Conseguí práctica en Carey gracias al ranking. 
+            El networking de la plataforma es oro puro. 100% recomendado."
+          </p>
+        </div>
+        
+        <!-- Testimonial 3 -->
+        <div class="bg-white rounded-2xl p-8 shadow-lg transform hover:scale-105 transition-transform">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-judicial-pink to-judicial-orange rounded-full flex items-center justify-center">
+              <span class="text-white font-bold">F</span>
+            </div>
+            <div class="ml-4">
+              <h4 class="font-bold text-judicial-orange">Fernanda López</h4>
+              <p class="text-gray-600 text-sm">U. de Concepción, 5° año</p>
+            </div>
+          </div>
+          <div class="text-yellow-400 text-xl mb-3">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="text-gray-700 italic">
+            "Pasé el examen de grado en el primer intento. 
+            Los recursos de Red Judicial son mejor que cualquier preparatorio."
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="precios" class="py-20 px-4 bg-white">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-black text-judicial-blue mb-4">
+          Planes que se adaptan a ti <i class="fas fa-dollar-sign text-judicial-orange"></i>
+        </h2>
+        <p class="text-xl text-gray-600">
+          Comienza gratis y escala cuando estés listo para el siguiente nivel
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <!-- Free Plan -->
+        <div class="bg-gray-50 rounded-3xl p-8 border-2 border-gray-200">
+          <div class="text-center">
+            <div class="w-16 h-16 bg-gray-400 rounded-full flex items-center justify-center mx-auto mb-4">
+              <i class="fas fa-gift text-2xl text-white"></i>
+            </div>
+            <h3 class="text-3xl font-black text-judicial-blue mb-2">Estudiante Free</h3>
+            <p class="text-gray-600 mb-6">Perfecto para empezar tu viaje jurídico</p>
+            <div class="text-5xl font-black text-judicial-blue mb-2">$0</div>
+            <p class="text-gray-600 mb-8">Para siempre</p>
+            
+            <button class="w-full bg-judicial-blue text-white font-bold py-4 px-8 rounded-full hover:bg-blue-700 transition mb-8">
+              Empezar Gratis
+            </button>
+            
+            <div class="text-left space-y-3">
+              <div class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                <span>Acceso básico a apuntes</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                <span>5 preguntas/día a la IA</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                <span>Participación en foros</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                <span>Ranking básico</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-times text-gray-400 mr-3"></i>
+                <span class="text-gray-400">Exámenes ilimitados</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-times text-gray-400 mr-3"></i>
+                <span class="text-gray-400">Acceso a procuradores</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Premium Plan -->
+        <div class="bg-gradient-to-br from-judicial-blue to-judicial-purple rounded-3xl p-8 border-2 border-judicial-blue relative transform hover:scale-105 transition-transform">
+          <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-judicial-orange text-white px-6 py-2 rounded-full font-bold text-sm">
+            <i class="fas fa-fire mr-1"></i>Más Popular
+          </div>
+          
+          <div class="text-center text-white">
+            <div class="w-16 h-16 bg-gradient-to-r from-judicial-orange to-yellow-400 rounded-full flex items-center justify-center mx-auto mb-4">
+              <i class="fas fa-star text-2xl text-white"></i>
+            </div>
+            <h3 class="text-3xl font-black mb-2">Estudiante Plus</h3>
+            <p class="text-blue-100 mb-6">Para estudiantes que van en serio</p>
+            <div class="text-5xl font-black mb-2">$9.990</div>
+            <p class="text-blue-100 mb-8">por mes</p>
+            
+            <button class="w-full bg-judicial-orange text-white font-bold py-4 px-8 rounded-full hover:bg-orange-600 transition mb-8 pulse-glow">
+              Probar 7 días gratis
+            </button>
+            
+            <div class="text-left space-y-3">
+              <div class="flex items-center">
+                <i class="fas fa-check text-green-400 mr-3"></i>
+                <span>Todo lo de Free +</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-check text-green-400 mr-3"></i>
+                <span>IA jurídica ilimitada</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-check text-green-400 mr-3"></i>
+                <span>Exámenes y simulacros ilimitados</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-check text-green-400 mr-3"></i>
+                <span>Acceso a red de procuradores</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-check text-green-400 mr-3"></i>
+                <span>Ranking premium + badges</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-check text-green-400 mr-3"></i>
+                <span>Casos prácticos avanzados</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-check text-green-400 mr-3"></i>
+                <span>Soporte prioritario</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-20 px-4 bg-gray-50">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-black text-judicial-blue mb-4">
+          Preguntas Frecuentes <i class="fas fa-question-circle text-judicial-purple"></i>
+        </h2>
+        <p class="text-xl text-gray-600">
+          Todo lo que necesitas saber antes de empezar
+        </p>
+      </div>
+      
+      <div class="space-y-6">
+        <div class="bg-white rounded-2xl p-6 shadow-lg">
+          <h3 class="text-xl font-bold text-judicial-blue mb-3">¿Realmente es gratis para empezar?</h3>
+          <p class="text-gray-600">Sí, completamente gratis. No pedimos tarjeta de crédito ni datos de pago. Solo tu email y listo.</p>
+        </div>
+        
+        <div class="bg-white rounded-2xl p-6 shadow-lg">
+          <h3 class="text-xl font-bold text-judicial-blue mb-3">¿Funciona para todas las universidades?</h3>
+          <p class="text-gray-600">Nuestro contenido está alineado con el programa común de las universidades chilenas. Funciona para U. de Chile, UC, UDP, UDD y más.</p>
+        </div>
+        
+        <div class="bg-white rounded-2xl p-6 shadow-lg">
+          <h3 class="text-xl font-bold text-judicial-blue mb-3">¿Qué tan inteligente es la IA jurídica?</h3>
+          <p class="text-gray-600">Está entrenada específicamente con legislación chilena, jurisprudencia y doctrina. No es un ChatGPT genérico, es tu compañero jurídico especializado.</p>
+        </div>
+        
+        <div class="bg-white rounded-2xl p-6 shadow-lg">
+          <h3 class="text-xl font-bold text-judicial-blue mb-3">¿Puedo cancelar cuando quiera?</h3>
+          <p class="text-gray-600">Por supuesto. Sin compromisos, sin letras chicas. Cancelas cuando quieras desde tu perfil.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="py-20 px-4 gradient-bg relative overflow-hidden">
+    <div class="absolute inset-0">
+      <div class="absolute top-10 left-10 w-32 h-32 bg-white/10 rounded-full float-animation"></div>
+      <div class="absolute bottom-10 right-10 w-48 h-48 bg-white/10 rounded-full float-animation" style="animation-delay: 1s;"></div>
+    </div>
+    
+    <div class="max-w-4xl mx-auto text-center text-white relative z-10">
+      <h2 class="text-5xl font-black mb-6">
+        ¿Listo para ser el mejor de tu clase? <i class="fas fa-crown text-judicial-orange"></i>
+      </h2>
+      <p class="text-xl mb-8 max-w-2xl mx-auto">
+        Únete a miles de estudiantes que ya están un paso adelante. 
+        Tu futuro jurídico comienza hoy.
+      </p>
+      
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+        <button class="bg-judicial-orange text-white font-bold py-4 px-10 rounded-full hover:bg-orange-600 transition transform hover:scale-105 pulse-glow text-lg">
+          <i class="fas fa-rocket mr-2"></i>Empezar Gratis Ahora
+        </button>
+        <button class="bg-white/20 backdrop-blur-sm text-white font-bold py-4 px-10 rounded-full hover:bg-white/30 transition text-lg">
+          <i class="fas fa-mobile-alt mr-2"></i>Descargar App
+        </button>
+      </div>
+      
+      <p class="text-white/80">
+        <i class="fas fa-clock mr-1"></i>Solo toma 2 minutos registrarse • <i class="fas fa-credit-card mr-1"></i>No necesitas tarjeta • <i class="fas fa-check mr-1"></i>Acceso inmediato
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-judicial-blue text-white py-12 px-4">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center mb-4">
+            <img src="logo-original.png" alt="Red Judicial" class="h-8 w-auto brightness-0 invert" loading="lazy">
+            <span class="ml-2 text-xl font-bold">Red Judicial</span>
+          </div>
+          <p class="text-blue-200">
+            La plataforma de aprendizaje jurídico más completa de Chile.
+          </p>
+        </div>
+        
+        <div>
+          <h4 class="font-bold mb-4">Estudiantes</h4>
+          <ul class="space-y-2 text-blue-200">
+            <li><a href="#" class="hover:text-white transition">Plan Free</a></li>
+            <li><a href="#" class="hover:text-white transition">Plan Plus</a></li>
+            <li><a href="#" class="hover:text-white transition">IA Jurídica</a></li>
+            <li><a href="#" class="hover:text-white transition">Ranking</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="font-bold mb-4">Recursos</h4>
+          <ul class="space-y-2 text-blue-200">
+            <li><a href="#" class="hover:text-white transition">Blog</a></li>
+            <li><a href="#" class="hover:text-white transition">Guías</a></li>
+            <li><a href="#" class="hover:text-white transition">FAQ</a></li>
+            <li><a href="#" class="hover:text-white transition">Soporte</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="font-bold mb-4">Síguenos</h4>
+          <div class="flex space-x-4">
+            <a href="#" class="text-blue-200 hover:text-white transition text-2xl"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="text-blue-200 hover:text-white transition text-2xl"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="text-blue-200 hover:text-white transition text-2xl"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="text-blue-200 hover:text-white transition text-2xl"><i class="fas fa-envelope"></i></a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="border-t border-blue-700 mt-8 pt-8 text-center text-blue-200">
+        <p>&copy; 2024 Red Judicial. Todos los derechos reservados. Hecho con <i class="fas fa-heart text-red-400"></i> para estudiantes de Derecho en Chile.</p>
+      </div>
+    </div>
+  </footer>
+
+  <style>
+    @keyframes progress {
+      0%, 100% { transform: translateX(-100%); }
+      50% { transform: translateX(0); }
+    }
+  </style>
+  <script src="chat-widget.js"></script>
+</body>
+</html> 

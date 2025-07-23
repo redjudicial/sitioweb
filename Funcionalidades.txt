@@ -1,0 +1,68 @@
+1. Base de Datos
+Arma tu red de contactos a lo largo de todo Chile con otros abogados, receptores judiciales, mediadores, peritos, procuradores y más.
+[plan_freemium] [plan_starter] [plan_premium] [plan_elite]
+
+2. Modelos Prácticos
+Encuentra y comparte distintos modelos de escritos, oficios, plantillas y apuntes prácticos para tu ejercicio diario.
+[plan_freemium] [plan_starter] [plan_premium] [plan_elite]
+
+3. Grupos y Foros
+Únete a los grupos y foros de discusión según tu especialidad, comparte dudas, aprende, enseña y amplía tu red de forma colaborativa.
+[plan_freemium] [plan_starter] [plan_premium] [plan_elite]
+
+4. Oficiador
+¿Necesitas el correo o contacto de un organismo? Aquí lo tienes. Accede a contactos validados y actualizados para agilizar tu práctica.
+[plan_freemium] [plan_starter] [plan_premium] [plan_elite]
+
+5. Plazómetro
+Cada día cuenta. Controla plazos procesales, administrativos o penales. Evita errores fatales y mantén control absoluto de tu agenda jurídica.
+[plan_freemium] [plan_starter] [plan_premium] [plan_elite]
+
+6. Base Semántica / Pericles-AI
+Conoce a Pericles, tu asistente jurídico con IA. Redacta escritos, consulta artículos, accede a la normativa y automatiza procesos con búsqueda semántica avanzada.
+[plan_starter] 100 créditos
+[plan_premium] 200 créditos
+[plan_elite] 300 créditos
+
+7. Registradora
+Tu tiempo vale. Registra horas de trabajo, emite informes en PDF o CSV, controla pendientes, completados y tu rentabilidad con dashboards visuales.
+[plan_freemium] sin dash
+[plan_starter] con dash
+[plan_premium] con dash
+[plan_elite] con dash
+
+8. Propuestador
+Diseña propuestas profesionales que cierran negocios. Incluye links de seguimiento para saber cuántas veces las vieron y tomar decisiones informadas.
+[plan_freemium] sin dash
+[plan_starter] con dash
+[plan_premium] con dash
+[plan_elite] con dash
+
+9. Normador
+La ley, articulada en un clic. Accede a normas, leyes y la Constitución con búsqueda relacional o semántica. Copia artículos completos con un solo botón.
+[plan_freemium] sin base semántica
+[plan_starter] con base semántica
+[plan_premium] con base semántica
+[plan_elite] con base semántica
+
+
+10. Dashboard Integral
+Visualiza en un solo lugar tus métricas: ganancias, horas trabajadas, propuestas enviadas, plazos controlados y tu progreso general. La información es poder.
+plan_freemium] sin dash
+[plan_starter] sin dash
+[plan_premium] con dash
+[plan_elite] con dash
+
+11. Agenda Judicial
+Coordina tus audiencias, gestiona pagos directos, sincroniza tu calendario y mantente siempre informado de tus compromisos.
+[plan_starter] [plan_premium] [plan_elite]
+
+12. Auxiliadores
+Recursos complementarios para tu día a día: recordatorios, asistentes rápidos y módulos de apoyo a la gestión operativa.
+[plan_freemium] [plan_starter] [plan_premium] [plan_elite]
+
+13. Capacitación y Webinars
+Accede a cursos prácticos, webinars, y formación continua en contabilidad, habilidades blandas, oralidad y estrategias legales.
+
+Correo Electrónico
+Simpley
