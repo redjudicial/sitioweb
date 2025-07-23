@@ -8,12 +8,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetId = this.getAttribute('href');
             // Solo scroll si es un anchor interno
             if (targetId && targetId.startsWith('#')) {
-                const targetSection = document.querySelector(targetId);
-                if (targetSection) {
-                    targetSection.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+            const targetSection = document.querySelector(targetId);
+            if (targetSection) {
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
                 }
             } else {
                 // Si es un enlace externo, redirige normalmente
@@ -54,9 +54,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Form submission handling
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
+        contactForm.addEventListener('submit', async function(e) {
             e.preventDefault();
-            
             // Get form data
             const formData = new FormData(this);
             const data = Object.fromEntries(formData);
@@ -66,24 +65,52 @@ document.addEventListener('DOMContentLoaded', function() {
                 showNotification('Por favor completa todos los campos requeridos.', 'error');
                 return;
             }
-            
             // Email validation
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(data.email)) {
                 showNotification('Por favor ingresa un email válido.', 'error');
                 return;
             }
-            
             // Phone validation
             const phoneRegex = /^\+56\d{7,9}$/;
             if (!phoneRegex.test(data.celular)) {
                 showNotification('Por favor ingresa un número de celular válido (ej: +56912345678).', 'error');
                 return;
             }
-            
-            // Simulate form submission
+            // Rut validation (opcional, si el campo existe)
+            if (data.rut && data.rut.length < 7) {
+                showNotification('Por favor ingresa un RUT válido.', 'error');
+                return;
+            }
+            // Envío real a Supabase
+            try {
+                const res = await fetch('https://qfomiierchksyfhxoukj.supabase.co/rest/v1/postulantes', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFmb21paWVyY2hrc3lmaHhvdWtqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEwMjgxNTYsImV4cCI6MjA2NjYwNDE1Nn0.HqlptdYXjd2s9q8xHEmgQPyf6a95fosb0YT5b4asMA8',
+                        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFmb21paWVyY2hrc3lmaHhvdWtqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEwMjgxNTYsImV4cCI6MjA2NjYwNDE1Nn0.HqlptdYXjd2s9q8xHEmgQPyf6a95fosb0YT5b4asMA8'
+                    },
+                    body: JSON.stringify({
+                        nombres: data.nombres,
+                        apellidos: data.apellidos,
+                        email: data.email,
+                        celular: data.celular,
+                        profesion: data.profesion,
+                        profesion_otro: data.profesion_otro || null,
+                        rut: data.rut || null
+                    })
+                });
+                if (res.ok) {
             showNotification('¡Gracias por tu interés! Te contactaremos pronto.', 'success');
             this.reset();
+                } else {
+                    const error = await res.json();
+                    showNotification('Error al enviar el formulario: ' + (error.message || 'Intenta nuevamente.'), 'error');
+                }
+            } catch (err) {
+                showNotification('Error de conexión. Intenta nuevamente.', 'error');
+            }
         });
     }
 
@@ -226,13 +253,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Parallax effect for hero section
     window.addEventListener('scroll', function() {
-        // Solo aplicar en desktop
-        if (window.innerWidth > 768) {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero');
-            const heroVisual = document.querySelector('.hero-visual');
-            if (heroVisual) {
-                heroVisual.style.transform = `translateY(${scrolled * 0.5}px)`;
+        // Solo aplicar en desktop (ancho > 1024px)
+        if (window.innerWidth > 1024) {
+        const scrolled = window.pageYOffset;
+        const hero = document.querySelector('.hero');
+        const heroVisual = document.querySelector('.hero-visual');
+        if (heroVisual) {
+            heroVisual.style.transform = `translateY(${scrolled * 0.5}px)`;
             }
         }
     });
@@ -507,4 +534,30 @@ window.addEventListener('scroll', () => {
     animateStats();
     statsAnimated = true;
   }
+}); 
+
+// Animación de texto HERO: Conecta. Comparte. Crece. (acumulativa, sin glow, espacio siempre reservado)
+document.addEventListener('DOMContentLoaded', function() {
+    const palabras = ['Conecta.', 'Comparte.', 'Crece.'];
+    const spans = [
+        document.getElementById('word-0'),
+        document.getElementById('word-1'),
+        document.getElementById('word-2')
+    ];
+    const placeholder = document.getElementById('hero-anim-placeholder');
+    if (spans.every(Boolean) && placeholder) {
+        // Limpiar texto inicial y mostrar placeholder para reservar espacio
+        spans.forEach(span => { span.textContent = ''; span.style.visibility = 'hidden'; });
+        placeholder.style.display = 'inline-block';
+        let i = 0;
+        const animar = () => {
+            if (i < palabras.length) {
+                spans[i].textContent = palabras[i];
+                spans[i].style.visibility = 'visible';
+                i++;
+                setTimeout(animar, 2000);
+            }
+        };
+        setTimeout(animar, 2000); // Espera 2s antes de mostrar 'Conecta.'
+    }
 }); 
