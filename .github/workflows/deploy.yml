@@ -20,6 +20,9 @@ jobs:
       - name: Deploy landing files via SCP
         run: scp -o StrictHostKeyChecking=no index.html script.js styles.css chat-widget.js server.js bitnami@23.22.241.121:/home/bitnami/landing/
 
+      - name: Copy files to WordPress directory
+        run: ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "sudo cp /home/bitnami/landing/*.html /home/bitnami/landing/*.css /home/bitnami/landing/*.js /home/bitnami/landing/*.png /opt/bitnami/wordpress/ 2>/dev/null || true"
+
       - name: List SSH keys
         run: ssh-add -l
 
