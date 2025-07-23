@@ -1117,7 +1117,9 @@ input:checked + .toggle-slider:before {
 
 /* Comparison Table */
 .comparison-section {
-    margin-top: 4rem;
+    margin-top: 6rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e2e8f0;
 }
 
 .comparison-section h3 {
