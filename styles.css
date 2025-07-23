@@ -19,6 +19,7 @@ body {
     flex-direction: column;
 }
 
+/* Container for limiting content width */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -820,6 +821,12 @@ body {
     background: #f7fafc;
 }
 
+.pricing .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
 .section-subtitle {
     text-align: center;
     font-size: 1.2rem;
@@ -1324,6 +1331,12 @@ input:checked + .toggle-slider:before {
     background: #23272f;
     color: #fff;
     padding: 2rem 0;
+}
+
+.footer .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 .footer-content {
@@ -2859,5 +2872,25 @@ a:hover, .nav-link:hover, .footer-link:hover, .footer-clean a:hover {
 }
 .footer-socials li a:hover i {
   color: #fff !important;
+}
+ 
+.footer-clean-grid,
+.footer-bottom-flex {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 0;
+  padding-right: 0;
+}
+ 
+/* Ajuste para evitar desbordes en secciones principales */
+.pricing-grid,
+.comparison-section,
+.contact-content {
+  width: 100%;
+  max-width: 1200px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 0 20px;
 }
  
