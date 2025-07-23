@@ -23,5 +23,5 @@ jobs:
       - name: List SSH keys
         run: ssh-add -l
 
-      - name: Restart Node.js backend
-        run: ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "cd /home/bitnami/landing && pkill -f 'node server.js'; nohup node server.js > server.log 2>&1 &"
+      - name: Reload backend with pm2
+        run: ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "cd /home/bitnami/landing && pm2 reload redjudicial-backend || pm2 start server.js --name redjudicial-backend"
