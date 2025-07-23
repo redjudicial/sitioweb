@@ -615,12 +615,12 @@ body {
 }
 
 @media (max-width: 480px) {
-    .hero-text h1 {
-        font-size: 2rem;
+    .hero-text h1, .hero-title {
+        font-size: 2.5rem !important;
+        line-height: 1.15;
     }
-    
     .hero-subtitle {
-        font-size: 1.2rem;
+        font-size: 1.3rem !important;
     }
     
     .container {
@@ -653,6 +653,18 @@ body {
     width: 240px;
     height: 240px;
   }
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .pricing-card {
+    min-width: 0;
+    max-width: 100vw;
+    box-sizing: border-box;
+    overflow-x: auto;
+  }
 }
 @media (max-width: 600px) {
   .hero-visual {
@@ -661,6 +673,18 @@ body {
   .neural-network {
     width: 140px;
     height: 140px;
+  }
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .pricing-card {
+    min-width: 0;
+    max-width: 100vw;
+    box-sizing: border-box;
+    overflow-x: auto;
   }
 }
 

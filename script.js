@@ -226,12 +226,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Parallax effect for hero section
     window.addEventListener('scroll', function() {
-        const scrolled = window.pageYOffset;
-        const hero = document.querySelector('.hero');
-        const heroVisual = document.querySelector('.hero-visual');
-        
-        if (heroVisual) {
-            heroVisual.style.transform = `translateY(${scrolled * 0.5}px)`;
+        // Solo aplicar en desktop
+        if (window.innerWidth > 768) {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            const heroVisual = document.querySelector('.hero-visual');
+            if (heroVisual) {
+                heroVisual.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
         }
     });
 
