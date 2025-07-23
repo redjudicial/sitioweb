@@ -24,4 +24,4 @@ jobs:
         run: ssh-add -l
 
       - name: Reload backend with pm2
-        run: ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "cd /home/bitnami/landing && pm2 reload redjudicial-backend || pm2 start server.js --name redjudicial-backend"
+        run: ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "cd /home/bitnami/landing && /home/bitnami/.nvm/versions/node/v22.17.1/bin/pm2 reload redjudicial-backend || /home/bitnami/.nvm/versions/node/v22.17.1/bin/pm2 start server.js --name redjudicial-backend"
