@@ -20,6 +20,8 @@ jobs:
       - name: Deploy landing files via SCP
         run: scp -o StrictHostKeyChecking=no index.html script.js styles.css chat-widget.js server.js bitnami@23.22.241.121:/home/bitnami/landing/
 
+      - name: List SSH keys
+        run: ssh-add -l
+
       - name: Restart Node.js backend
-        run: |
-          ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "cd /home/bitnami/landing && pkill -f 'node server.js'; nohup node server.js > server.log 2>&1 &"
+        run: ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "cd /home/bitnami/landing && pkill -f 'node server.js'; nohup node server.js > server.log 2>&1 &"
