@@ -159,11 +159,19 @@ nano estudiantes.css
 
 #### 5. **GitHub Actions no actualiza archivos en producción**
 **Problema**: Los archivos locales están actualizados pero el servidor muestra versión antigua
+**Causa identificada**: 
+- Paso problemático en `.github/workflows/deploy.yml` línea 35
+- Directorio `/home/bitnami/landing/landing/` no existe
+- Comandos con `|| true` ocultan errores de copia
 **Síntomas**: 
 - Título antiguo en el navegador
 - Colores antiguos
 - CSS no actualizado
-**Solución de emergencia**:
+**Solución aplicada**: ✅ **Arreglado en commit 6d41adb**
+- Eliminado paso problemático de copia a subdirectorio inexistente
+- Mejorado comando de copia con verificación explícita
+- Agregado paso de verificación del deploy
+**Solución de emergencia** (si vuelve a fallar):
 ```bash
 # Copiar manualmente el archivo problemático
 scp -i ~/.ssh/LightsailDefaultKey-us-east-1.pem estudiantes.html bitnami@23.22.241.121:/opt/bitnami/wordpress/
@@ -171,7 +179,6 @@ scp -i ~/.ssh/LightsailDefaultKey-us-east-1.pem estudiantes.html bitnami@23.22.2
 # Verificar que se copió correctamente
 ssh -i ~/.ssh/LightsailDefaultKey-us-east-1.pem bitnami@23.22.241.121 "head -5 /opt/bitnami/wordpress/estudiantes.html"
 ```
-**Prevención**: Revisar que el GitHub Action esté configurado para copiar a `/opt/bitnami/wordpress/`
 
 ### 🔧 Comandos Útiles de Administración
 
