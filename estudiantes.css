@@ -2875,10 +2875,10 @@ section[class*="bg-gray-50"] {
 
 /* === Chat Widget Styles === */
 .rj-chat-bubble {
-  position: fixed;
-  right: 32px;
-  bottom: 32px;
-  z-index: 999999;
+  position: fixed !important;
+  right: 32px !important;
+  bottom: 32px !important;
+  z-index: 999999 !important;
   background: #1a365d;
   color: #fff;
   border-radius: 50px;
@@ -2930,17 +2930,17 @@ section[class*="bg-gray-50"] {
   display: none;
 }
 .rj-chat-modal {
-  position: fixed;
-  right: 24px;
-  bottom: 100px;
-  width: 350px;
-  max-width: 95vw;
-  height: 420px;
-  background: #fff;
-  border-radius: 18px;
-  box-shadow: 0 8px 32px rgba(44,62,80,0.18);
-  border: 1.5px solid #e5e7eb;
-  z-index: 100000;
+  position: fixed !important;
+  right: 24px !important;
+  bottom: 100px !important;
+  width: 350px !important;
+  max-width: 95vw !important;
+  height: 420px !important;
+  background: #fff !important;
+  border-radius: 18px !important;
+  box-shadow: 0 8px 32px rgba(44,62,80,0.18) !important;
+  border: 1.5px solid #e5e7eb !important;
+  z-index: 100000 !important;
   display: flex;
   flex-direction: column;
   overflow: hidden;
