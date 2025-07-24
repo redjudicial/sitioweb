@@ -29,6 +29,7 @@ jobs:
             server.js \
             package.json \
             package-lock.json \
+            test-deployment.txt \
             bitnami@23.22.241.121:/home/bitnami/landing/
 
       - name: Copy files to WordPress directory
@@ -44,6 +45,8 @@ jobs:
             sudo chown -R bitnami:daemon /opt/bitnami/wordpress/ &&
             echo '📁 Archivos en WordPress después de copiar:' &&
             ls -la /opt/bitnami/wordpress/*.css &&
+            echo '📄 Verificando archivo de prueba:' &&
+            cat /home/bitnami/landing/test-deployment.txt &&
             echo '✅ Archivos copiados exitosamente a WordPress'
           "
 

@@ -1,0 +1,3 @@
+TEST DEPLOYMENT - VERSION 1.0
+Fecha: $(date)
+Commit: $(git rev-parse HEAD) 
