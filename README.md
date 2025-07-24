@@ -85,13 +85,33 @@ El archivo `.github/workflows/deploy.yml` maneja el deploy automático:
 - WordPress sirve el dominio principal desde `/opt/bitnami/wordpress/`
 - El backend de Node.js/PM2 corre desde `/home/bitnami/landing/`
 
+### 🎨 Sistema de CSS Separados
+
+**Arquitectura de estilos independientes:**
+
+- **`styles.css`** → Solo para `index.html` (landing principal para abogados)
+- **`estudiantes.css`** → Solo para `estudiantes.html` (landing para estudiantes)
+
+**Beneficios:**
+- ✅ Evita conflictos entre páginas
+- ✅ Optimización específica por audiencia
+- ✅ Mantenimiento más fácil
+- ✅ Carga más rápida (solo el CSS necesario)
+
+**Reglas importantes:**
+- Cambios en `styles.css` NO afectan `estudiantes.html`
+- Cambios en `estudiantes.css` NO afectan `index.html`
+- Cada página carga solo su CSS específico
+
 ### 🗂️ Estructura en Servidor
 
 ```bash
 # WordPress (frontend público):
 /opt/bitnami/wordpress/
-├── index.html          # Landing principal
-├── styles.css          # Estilos CSS
+├── index.html          # Landing principal (abogados)
+├── estudiantes.html    # Landing para estudiantes
+├── styles.css          # CSS para index.html
+├── estudiantes.css     # CSS para estudiantes.html
 ├── script.js           # JavaScript del landing
 └── chat-widget.js      # Widget de chat
 
@@ -122,13 +142,19 @@ curl -X POST "https://api.cloudflare.com/client/v4/zones/41a7ba1fa6bff0d03a8ee33
 
 #### 3. **Conflictos CSS entre reglas**
 **Problema resuelto**: `.comparison-section` tenía reglas CSS conflictivas
-**Solución aplicada**:
-```css
-.comparison-section {
-    margin-top: 6rem;                    /* Separación superior */
-    padding-top: 2rem;                   /* Padding interno */
-    border-top: 1px solid #e2e8f0;      /* Línea separadora */
-}
+**Solución aplicada**: Sistema de CSS separados
+- `styles.css` → Solo para index.html  
+- `estudiantes.css` → Solo para estudiantes.html
+
+#### 4. **Cambios CSS no se ven en una página específica**
+**Problema**: Modificar CSS incorrecto para la página objetivo
+**Solución**: Verificar qué archivo CSS editar:
+```bash
+# Para index.html (abogados):
+nano styles.css
+
+# Para estudiantes.html:
+nano estudiantes.css
 ```
 
 ### 🔧 Comandos Útiles de Administración
