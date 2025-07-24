@@ -34,20 +34,29 @@ jobs:
       - name: Copy files to WordPress directory
         run: |
           ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "
+            echo '📁 Archivos en landing:' &&
+            ls -la /home/bitnami/landing/*.css &&
+            echo '📁 Copiando archivos...' &&
             sudo cp /home/bitnami/landing/*.html /opt/bitnami/wordpress/ &&
             sudo cp /home/bitnami/landing/*.css /opt/bitnami/wordpress/ &&
             sudo cp /home/bitnami/landing/*.js /opt/bitnami/wordpress/ &&
             sudo cp /home/bitnami/landing/*.png /opt/bitnami/wordpress/ 2>/dev/null || true &&
             sudo chown -R bitnami:daemon /opt/bitnami/wordpress/ &&
+            echo '📁 Archivos en WordPress después de copiar:' &&
+            ls -la /opt/bitnami/wordpress/*.css &&
             echo '✅ Archivos copiados exitosamente a WordPress'
           "
 
       - name: Clear WordPress cache
         run: |
           ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "
+            echo '🧹 Limpiando cache...' &&
             sudo rm -rf /opt/bitnami/wordpress/wp-content/cache/* 2>/dev/null || true &&
             sudo rm -rf /opt/bitnami/wordpress/wp-content/uploads/cache/* 2>/dev/null || true &&
-            echo '✅ Cache limpiado'
+            echo '🔄 Reiniciando servicios...' &&
+            sudo /opt/bitnami/ctlscript.sh restart apache 2>/dev/null || true &&
+            sudo /opt/bitnami/ctlscript.sh restart nginx 2>/dev/null || true &&
+            echo '✅ Cache limpiado y servicios reiniciados'
           "
 
       - name: Install Node.js dependencies
