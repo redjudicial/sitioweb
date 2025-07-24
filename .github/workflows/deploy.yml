@@ -35,8 +35,8 @@ jobs:
       - name: Copy files to WordPress directory
         run: ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "sudo cp /home/bitnami/landing/*.html /home/bitnami/landing/*.css /home/bitnami/landing/*.js /home/bitnami/landing/*.png /opt/bitnami/wordpress/ 2>/dev/null || true"
 
-      - name: Clear WordPress cache
-        run: ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "sudo rm -rf /opt/bitnami/wordpress/wp-content/cache/* 2>/dev/null || true && sudo rm -rf /opt/bitnami/wordpress/wp-content/uploads/cache/* 2>/dev/null || true && sudo chown -R bitnami:daemon /opt/bitnami/wordpress/ 2>/dev/null || true"
+      - name: Clear WordPress cache and restart services
+        run: ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "sudo rm -rf /opt/bitnami/wordpress/wp-content/cache/* 2>/dev/null || true && sudo rm -rf /opt/bitnami/wordpress/wp-content/uploads/cache/* 2>/dev/null || true && sudo chown -R bitnami:daemon /opt/bitnami/wordpress/ 2>/dev/null || true && sudo /opt/bitnami/ctlscript.sh restart apache 2>/dev/null || true && sudo /opt/bitnami/ctlscript.sh restart nginx 2>/dev/null || true"
 
       - name: Install Node.js dependencies
         run: ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "cd /home/bitnami/landing && export PATH=$PATH:/home/bitnami/.nvm/versions/node/v22.17.1/bin && /home/bitnami/.nvm/versions/node/v22.17.1/bin/npm install"
