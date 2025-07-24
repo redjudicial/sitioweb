@@ -2875,28 +2875,26 @@ section[class*="bg-gray-50"] {
 
 /* === Chat Widget Styles === */
 .rj-chat-bubble {
-  position: fixed !important;
-  right: 32px !important;
-  bottom: 32px !important;
-  z-index: 999999 !important;
-  background: #ff0000 !important;
-  color: #fff !important;
-  border-radius: 50px !important;
-  box-shadow: 0 8px 32px rgba(44,62,80,0.18) !important;
-  border: 3px solid #fff !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 0 !important;
-  width: 56px !important;
-  height: 56px !important;
-  font-size: 1.15rem !important;
-  font-weight: 700 !important;
-  cursor: pointer !important;
-  transition: box-shadow 0.2s, background 0.2s, transform 0.2s !important;
-  animation: rj-bounce-in 0.7s cubic-bezier(.68,-0.55,.27,1.55) !important;
-  visibility: visible !important;
-  opacity: 1 !important;
+  position: fixed;
+  right: 32px;
+  bottom: 32px;
+  z-index: 999999;
+  background: #1a365d;
+  color: #fff;
+  border-radius: 50px;
+  box-shadow: 0 8px 32px rgba(44,62,80,0.18);
+  border: 3px solid #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  width: 56px;
+  height: 56px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: box-shadow 0.2s, background 0.2s, transform 0.2s;
+  animation: rj-bounce-in 0.7s cubic-bezier(.68,-0.55,.27,1.55);
 }
 .rj-chat-bubble:hover {
   box-shadow: 0 12px 36px rgba(44,62,80,0.22);
