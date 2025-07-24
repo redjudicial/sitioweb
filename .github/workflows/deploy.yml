@@ -18,13 +18,37 @@ jobs:
           ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
       - name: Deploy landing files via SCP
-        run: scp -o StrictHostKeyChecking=no index.html estudiantes.html script.js styles.css estudiantes.css chat-widget.js server.js bitnami@23.22.241.121:/home/bitnami/landing/
+        run: |
+          scp -o StrictHostKeyChecking=no \
+            index.html \
+            estudiantes.html \
+            script.js \
+            styles.css \
+            estudiantes.css \
+            chat-widget.js \
+            server.js \
+            package.json \
+            package-lock.json \
+            APIS_Y_CREDENCIALES.env \
+            bitnami@23.22.241.121:/home/bitnami/landing/
 
       - name: Copy files to WordPress directory
         run: ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "sudo cp /home/bitnami/landing/*.html /home/bitnami/landing/*.css /home/bitnami/landing/*.js /home/bitnami/landing/*.png /opt/bitnami/wordpress/ 2>/dev/null || true"
 
+      - name: Install Node.js dependencies
+        run: ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "cd /home/bitnami/landing && export PATH=$PATH:/home/bitnami/.nvm/versions/node/v22.17.1/bin && /home/bitnami/.nvm/versions/node/v22.17.1/bin/npm install"
+
+      - name: Create SQLite database directory
+        run: ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "cd /home/bitnami/landing && touch chat_history.db && chmod 666 chat_history.db"
+
       - name: List SSH keys
         run: ssh-add -l
 
-      - name: Reload backend with pm2
-        run: ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "cd /home/bitnami/landing && export PATH=$PATH:/home/bitnami/.nvm/versions/node/v22.17.1/bin && /home/bitnami/.nvm/versions/node/v22.17.1/bin/pm2 reload redjudicial-backend || /home/bitnami/.nvm/versions/node/v22.17.1/bin/pm2 start server.js --name redjudicial-backend"
+      - name: Stop existing backend
+        run: ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "export PATH=$PATH:/home/bitnami/.nvm/versions/node/v22.17.1/bin && /home/bitnami/.nvm/versions/node/v22.17.1/bin/pm2 stop redjudicial-backend 2>/dev/null || true"
+
+      - name: Start/reload backend with pm2
+        run: ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "cd /home/bitnami/landing && export PATH=$PATH:/home/bitnami/.nvm/versions/node/v22.17.1/bin && /home/bitnami/.nvm/versions/node/v22.17.1/bin/pm2 start server.js --name redjudicial-backend --env production"
+
+      - name: Save pm2 configuration
+        run: ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "export PATH=$PATH:/home/bitnami/.nvm/versions/node/v22.17.1/bin && /home/bitnami/.nvm/versions/node/v22.17.1/bin/pm2 save"

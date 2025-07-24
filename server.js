@@ -29,9 +29,77 @@ const db = new sqlite3.Database('./chat_history.db', (err) => {
       timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
     )`, (err) => {
       if (err) {
-        console.error('Error creando tabla:', err.message);
+        console.error('Error creando tabla chat_history:', err.message);
       } else {
         console.log('Tabla chat_history creada/verificada');
+      }
+    });
+
+    // Crear tabla para estudiantes habilitados
+    db.run(`CREATE TABLE IF NOT EXISTS estudiantes_habilitados (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id TEXT UNIQUE NOT NULL,
+      nombre TEXT NOT NULL,
+      email TEXT NOT NULL,
+      telefono TEXT,
+      universidad TEXT NOT NULL,
+      region TEXT NOT NULL,
+      comuna TEXT NOT NULL,
+      areas_interes TEXT NOT NULL,
+      experiencia TEXT,
+      habilidades TEXT,
+      disponibilidad TEXT,
+      tarifa_hora INTEGER,
+      plan_actual TEXT DEFAULT 'Elite',
+      fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP,
+      activo BOOLEAN DEFAULT 1,
+      perfil_completo BOOLEAN DEFAULT 0
+    )`, (err) => {
+      if (err) {
+        console.error('Error creando tabla estudiantes_habilitados:', err.message);
+      } else {
+        console.log('Tabla estudiantes_habilitados creada/verificada');
+      }
+    });
+
+    // Crear tabla para oportunidades laborales
+    db.run(`CREATE TABLE IF NOT EXISTS oportunidades_laborales (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      abogado_id TEXT NOT NULL,
+      titulo TEXT NOT NULL,
+      descripcion TEXT NOT NULL,
+      area_derecho TEXT NOT NULL,
+      region TEXT NOT NULL,
+      comuna TEXT,
+      tipo_trabajo TEXT NOT NULL,
+      remuneracion TEXT,
+      requisitos TEXT,
+      fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+      fecha_limite DATE,
+      activa BOOLEAN DEFAULT 1
+    )`, (err) => {
+      if (err) {
+        console.error('Error creando tabla oportunidades_laborales:', err.message);
+      } else {
+        console.log('Tabla oportunidades_laborales creada/verificada');
+      }
+    });
+
+    // Crear tabla para conexiones estudiante-abogado
+    db.run(`CREATE TABLE IF NOT EXISTS conexiones_laborales (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      estudiante_id TEXT NOT NULL,
+      abogado_id TEXT NOT NULL,
+      oportunidad_id INTEGER,
+      estado TEXT DEFAULT 'pendiente',
+      fecha_contacto DATETIME DEFAULT CURRENT_TIMESTAMP,
+      fecha_respuesta DATETIME,
+      notas TEXT
+    )`, (err) => {
+      if (err) {
+        console.error('Error creando tabla conexiones_laborales:', err.message);
+      } else {
+        console.log('Tabla conexiones_laborales creada/verificada');
       }
     });
   }
@@ -241,6 +309,220 @@ function saveMessage(threadId, role, content) {
     );
   });
 }
+
+// ===== RUTAS PARA SISTEMA DE EJERCER =====
+
+// Registrar estudiante habilitado
+app.post('/api/ejercer/registro', (req, res) => {
+  const {
+    user_id,
+    nombre,
+    email,
+    telefono,
+    universidad,
+    region,
+    comuna,
+    areas_interes,
+    experiencia,
+    habilidades,
+    disponibilidad,
+    tarifa_hora
+  } = req.body;
+
+  if (!user_id || !nombre || !email || !universidad || !region || !comuna || !areas_interes) {
+    return res.status(400).json({ error: 'Faltan campos requeridos' });
+  }
+
+  const sql = `INSERT OR REPLACE INTO estudiantes_habilitados 
+    (user_id, nombre, email, telefono, universidad, region, comuna, areas_interes, experiencia, habilidades, disponibilidad, tarifa_hora, perfil_completo)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)`;
+
+  db.run(sql, [user_id, nombre, email, telefono, universidad, region, comuna, areas_interes, experiencia, habilidades, disponibilidad, tarifa_hora], function(err) {
+    if (err) {
+      console.error('Error registrando estudiante:', err);
+      res.status(500).json({ error: 'Error registrando estudiante' });
+    } else {
+      res.json({ 
+        message: 'Perfil actualizado exitosamente',
+        id: this.lastID 
+      });
+    }
+  });
+});
+
+// Obtener perfil de estudiante
+app.get('/api/ejercer/perfil/:user_id', (req, res) => {
+  const { user_id } = req.params;
+  
+  db.get('SELECT * FROM estudiantes_habilitados WHERE user_id = ?', [user_id], (err, row) => {
+    if (err) {
+      res.status(500).json({ error: 'Error obteniendo perfil' });
+    } else if (!row) {
+      res.status(404).json({ error: 'Perfil no encontrado' });
+    } else {
+      res.json(row);
+    }
+  });
+});
+
+// Buscar estudiantes por criterios (para abogados)
+app.get('/api/ejercer/buscar-estudiantes', (req, res) => {
+  const { region, area_derecho, experiencia } = req.query;
+  
+  let sql = 'SELECT * FROM estudiantes_habilitados WHERE activo = 1 AND perfil_completo = 1';
+  let params = [];
+  
+  if (region) {
+    sql += ' AND region = ?';
+    params.push(region);
+  }
+  
+  if (area_derecho) {
+    sql += ' AND areas_interes LIKE ?';
+    params.push(`%${area_derecho}%`);
+  }
+  
+  sql += ' ORDER BY fecha_registro DESC';
+  
+  db.all(sql, params, (err, rows) => {
+    if (err) {
+      res.status(500).json({ error: 'Error buscando estudiantes' });
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
+// Publicar oportunidad laboral
+app.post('/api/ejercer/oportunidad', (req, res) => {
+  const {
+    abogado_id,
+    titulo,
+    descripcion,
+    area_derecho,
+    region,
+    comuna,
+    tipo_trabajo,
+    remuneracion,
+    requisitos,
+    fecha_limite
+  } = req.body;
+
+  if (!abogado_id || !titulo || !descripcion || !area_derecho || !region || !tipo_trabajo) {
+    return res.status(400).json({ error: 'Faltan campos requeridos' });
+  }
+
+  const sql = `INSERT INTO oportunidades_laborales 
+    (abogado_id, titulo, descripcion, area_derecho, region, comuna, tipo_trabajo, remuneracion, requisitos, fecha_limite)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+  db.run(sql, [abogado_id, titulo, descripcion, area_derecho, region, comuna, tipo_trabajo, remuneracion, requisitos, fecha_limite], function(err) {
+    if (err) {
+      console.error('Error publicando oportunidad:', err);
+      res.status(500).json({ error: 'Error publicando oportunidad' });
+    } else {
+      res.json({ 
+        message: 'Oportunidad publicada exitosamente',
+        id: this.lastID 
+      });
+    }
+  });
+});
+
+// Obtener oportunidades laborales
+app.get('/api/ejercer/oportunidades', (req, res) => {
+  const { region, area_derecho } = req.query;
+  
+  let sql = 'SELECT * FROM oportunidades_laborales WHERE activa = 1';
+  let params = [];
+  
+  if (region) {
+    sql += ' AND region = ?';
+    params.push(region);
+  }
+  
+  if (area_derecho) {
+    sql += ' AND area_derecho = ?';
+    params.push(area_derecho);
+  }
+  
+  sql += ' ORDER BY fecha_creacion DESC';
+  
+  db.all(sql, params, (err, rows) => {
+    if (err) {
+      res.status(500).json({ error: 'Error obteniendo oportunidades' });
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
+// Contactar estudiante (abogado contacta estudiante)
+app.post('/api/ejercer/contactar', (req, res) => {
+  const { estudiante_id, abogado_id, oportunidad_id, notas } = req.body;
+
+  if (!estudiante_id || !abogado_id) {
+    return res.status(400).json({ error: 'Faltan campos requeridos' });
+  }
+
+  const sql = `INSERT INTO conexiones_laborales 
+    (estudiante_id, abogado_id, oportunidad_id, notas)
+    VALUES (?, ?, ?, ?)`;
+
+  db.run(sql, [estudiante_id, abogado_id, oportunidad_id, notas], function(err) {
+    if (err) {
+      console.error('Error creando conexión:', err);
+      res.status(500).json({ error: 'Error creando conexión' });
+    } else {
+      res.json({ 
+        message: 'Contacto enviado exitosamente',
+        id: this.lastID 
+      });
+    }
+  });
+});
+
+// Obtener conexiones de un estudiante
+app.get('/api/ejercer/conexiones/:user_id', (req, res) => {
+  const { user_id } = req.params;
+  
+  const sql = `SELECT cl.*, ol.titulo as oportunidad_titulo, ol.area_derecho
+               FROM conexiones_laborales cl
+               LEFT JOIN oportunidades_laborales ol ON cl.oportunidad_id = ol.id
+               WHERE cl.estudiante_id = ?
+               ORDER BY cl.fecha_contacto DESC`;
+  
+  db.all(sql, [user_id], (err, rows) => {
+    if (err) {
+      res.status(500).json({ error: 'Error obteniendo conexiones' });
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
+// Actualizar estado de conexión
+app.put('/api/ejercer/conexion/:id', (req, res) => {
+  const { id } = req.params;
+  const { estado, notas } = req.body;
+
+  const sql = `UPDATE conexiones_laborales 
+               SET estado = ?, fecha_respuesta = CURRENT_TIMESTAMP, notas = ?
+               WHERE id = ?`;
+
+  db.run(sql, [estado, notas, id], function(err) {
+    if (err) {
+      res.status(500).json({ error: 'Error actualizando conexión' });
+    } else {
+      res.json({ 
+        message: 'Conexión actualizada exitosamente',
+        changes: this.changes 
+      });
+    }
+  });
+});
+
+// ===== FIN RUTAS PARA SISTEMA DE EJERCER =====
 
 app.post('/api/chat', async (req, res) => {
   const { message, threadId } = req.body;
