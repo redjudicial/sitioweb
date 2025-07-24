@@ -2594,35 +2594,7 @@ input:checked + .toggle-slider:before {
   }
 }
 
-.scroll-top-btn {
-  position: fixed;
-  left: 32px;
-  right: auto;
-  bottom: 32px;
-  z-index: 1200;
-  background: none;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  box-shadow: 0 4px 16px rgba(44,62,80,0.13);
-  border-radius: 50%;
-  transition: transform 0.2s, box-shadow 0.2s;
-  padding: 0;
-  opacity: 0.85;
-}
-@media (max-width: 700px) {
-  .scroll-top-btn {
-    left: 12px;
-    right: auto;
-    bottom: 12px;
-  }
-}
-.scroll-top-btn:focus,
-.scroll-top-btn:hover {
-  transform: scale(1.08);
-  box-shadow: 0 8px 24px rgba(44,62,80,0.18);
-  opacity: 1;
-}
+
  
 .features-cards-grid {
   width: 100%;
@@ -2841,25 +2813,13 @@ input:checked + .toggle-slider:before {
   }
 }
  
-.scroll-top-btn svg path {
-  transition: stroke 0.2s;
-  stroke: #fff;
-}
-.scroll-top-btn.on-footer svg path {
-  stroke: #23272f;
-}
+
  
 a:hover, .nav-link:hover, .footer-link:hover, .footer-clean a:hover {
   color: #1a365d !important;
 }
  
-.scroll-top-btn svg circle {
-  transition: fill 0.2s;
-  fill: #23272f;
-}
-.scroll-top-btn.on-footer svg circle {
-  fill: #fff;
-}
+
  
 .footer-socials li a i {
   color: #fff !important;
