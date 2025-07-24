@@ -15,9 +15,25 @@
     <span class="rj-chat-badge" id="rj-chat-badge">Nuevo</span>
   `;
   bubble.title = BUTTON_TEXT;
+  
+  console.log('✅ Burbuja creada:', bubble);
+  console.log('✅ HTML de la burbuja:', bubble.innerHTML);
+  
   document.body.appendChild(bubble);
   
-  console.log('✅ Burbuja de chat creada y agregada al DOM');
+  console.log('✅ Burbuja agregada al DOM');
+  console.log('✅ Elemento en DOM:', document.querySelector('.rj-chat-bubble'));
+  console.log('✅ Computed styles:', window.getComputedStyle(bubble));
+  
+  // Verificar si el elemento es visible
+  setTimeout(() => {
+    const rect = bubble.getBoundingClientRect();
+    console.log('✅ Posición del elemento:', rect);
+    console.log('✅ ¿Elemento visible?', rect.width > 0 && rect.height > 0);
+    console.log('✅ Display style:', window.getComputedStyle(bubble).display);
+    console.log('✅ Visibility style:', window.getComputedStyle(bubble).visibility);
+    console.log('✅ Opacity style:', window.getComputedStyle(bubble).opacity);
+  }, 1000);
 
   // Crear modal (inicialmente oculto)
   let modal = null;
