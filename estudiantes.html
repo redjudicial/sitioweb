@@ -7,7 +7,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="estudiantes.css">
-  <!-- Tailwind removido - usando solo estudiantes.css -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'judicial-blue': '#1e40af',
+            'judicial-purple': '#7c3aed',
+            'judicial-pink': '#ec4899',
+            'judicial-orange': '#f97316',
+          },
+          fontFamily: {
+            'inter': ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
   <style>
     .gradient-bg {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
