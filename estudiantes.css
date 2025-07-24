@@ -2873,7 +2873,7 @@ section[class*="bg-gray-50"] {
     }
 }
 
-/* === Chat Widget Styles === */
+/* === Chat Widget Styles === VERSION 2.0 */
 .rj-chat-bubble {
   position: fixed !important;
   right: 32px !important;
