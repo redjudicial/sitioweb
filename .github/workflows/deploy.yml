@@ -29,7 +29,6 @@ jobs:
             server.js \
             package.json \
             package-lock.json \
-            APIS_Y_CREDENCIALES.env \
             bitnami@23.22.241.121:/home/bitnami/landing/
 
       - name: Copy files to WordPress directory
@@ -40,36 +39,68 @@ jobs:
             sudo cp /home/bitnami/landing/*.js /opt/bitnami/wordpress/ &&
             sudo cp /home/bitnami/landing/*.png /opt/bitnami/wordpress/ 2>/dev/null || true &&
             sudo chown -R bitnami:daemon /opt/bitnami/wordpress/ &&
-            echo 'Archivos copiados exitosamente a WordPress'
+            echo '✅ Archivos copiados exitosamente a WordPress'
           "
 
-      - name: Clear WordPress cache and restart services
-        run: ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "sudo rm -rf /opt/bitnami/wordpress/wp-content/cache/* 2>/dev/null || true && sudo rm -rf /opt/bitnami/wordpress/wp-content/uploads/cache/* 2>/dev/null || true && sudo /opt/bitnami/ctlscript.sh restart apache 2>/dev/null || true && sudo /opt/bitnami/ctlscript.sh restart nginx 2>/dev/null || true"
+      - name: Clear WordPress cache
+        run: |
+          ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "
+            sudo rm -rf /opt/bitnami/wordpress/wp-content/cache/* 2>/dev/null || true &&
+            sudo rm -rf /opt/bitnami/wordpress/wp-content/uploads/cache/* 2>/dev/null || true &&
+            echo '✅ Cache limpiado'
+          "
 
       - name: Install Node.js dependencies
-        run: ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "cd /home/bitnami/landing && export PATH=$PATH:/home/bitnami/.nvm/versions/node/v22.17.1/bin && /home/bitnami/.nvm/versions/node/v22.17.1/bin/npm install"
+        run: |
+          ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "
+            cd /home/bitnami/landing &&
+            export PATH=\$PATH:/home/bitnami/.nvm/versions/node/v22.17.1/bin &&
+            /home/bitnami/.nvm/versions/node/v22.17.1/bin/npm install &&
+            echo '✅ Dependencias instaladas'
+          "
 
-      - name: Create SQLite database directory
-        run: ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "cd /home/bitnami/landing && touch chat_history.db && chmod 666 chat_history.db"
+      - name: Create SQLite database file
+        run: |
+          ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "
+            cd /home/bitnami/landing &&
+            touch chat_history.db &&
+            chmod 666 chat_history.db &&
+            echo '✅ Base de datos creada'
+          "
 
-      - name: List SSH keys
-        run: ssh-add -l
+      - name: Stop existing backend (if running)
+        run: |
+          ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "
+            export PATH=\$PATH:/home/bitnami/.nvm/versions/node/v22.17.1/bin &&
+            /home/bitnami/.nvm/versions/node/v22.17.1/bin/pm2 stop redjudicial-backend 2>/dev/null || echo 'Backend no estaba corriendo' &&
+            echo '✅ Backend anterior detenido'
+          "
 
-      - name: Stop existing backend
-        run: ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "export PATH=$PATH:/home/bitnami/.nvm/versions/node/v22.17.1/bin && /home/bitnami/.nvm/versions/node/v22.17.1/bin/pm2 stop redjudicial-backend 2>/dev/null || true"
-
-      - name: Start/reload backend with pm2
-        run: ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "cd /home/bitnami/landing && export PATH=$PATH:/home/bitnami/.nvm/versions/node/v22.17.1/bin && /home/bitnami/.nvm/versions/node/v22.17.1/bin/pm2 start server.js --name redjudicial-backend --env production"
+      - name: Start backend with pm2
+        run: |
+          ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "
+            cd /home/bitnami/landing &&
+            export PATH=\$PATH:/home/bitnami/.nvm/versions/node/v22.17.1/bin &&
+            /home/bitnami/.nvm/versions/node/v22.17.1/bin/pm2 start server.js --name redjudicial-backend --env production &&
+            echo '✅ Backend iniciado'
+          "
 
       - name: Save pm2 configuration
-        run: ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "export PATH=$PATH:/home/bitnami/.nvm/versions/node/v22.17.1/bin && /home/bitnami/.nvm/versions/node/v22.17.1/bin/pm2 save"
+        run: |
+          ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "
+            export PATH=\$PATH:/home/bitnami/.nvm/versions/node/v22.17.1/bin &&
+            /home/bitnami/.nvm/versions/node/v22.17.1/bin/pm2 save &&
+            echo '✅ Configuración pm2 guardada'
+          "
 
       - name: Verify deployment
         run: |
           ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "
-            echo '=== Verificando archivos en WordPress ===' &&
-            ls -la /opt/bitnami/wordpress/*.html /opt/bitnami/wordpress/*.css /opt/bitnami/wordpress/*.js 2>/dev/null || echo 'Algunos archivos no encontrados' &&
-            echo '=== Verificando backend ===' &&
-            export PATH=$PATH:/home/bitnami/.nvm/versions/node/v22.17.1/bin &&
-            /home/bitnami/.nvm/versions/node/v22.17.1/bin/pm2 status
+            echo '=== ✅ VERIFICACIÓN DE DEPLOY ===' &&
+            echo '📁 Archivos en WordPress:' &&
+            ls -la /opt/bitnami/wordpress/*.html /opt/bitnami/wordpress/*.css /opt/bitnami/wordpress/*.js 2>/dev/null || echo '⚠️ Algunos archivos no encontrados' &&
+            echo '🔄 Estado del backend:' &&
+            export PATH=\$PATH:/home/bitnami/.nvm/versions/node/v22.17.1/bin &&
+            /home/bitnami/.nvm/versions/node/v22.17.1/bin/pm2 status &&
+            echo '✅ Deploy completado exitosamente'
           "
