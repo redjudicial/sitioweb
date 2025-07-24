@@ -2893,11 +2893,23 @@ a:hover, .nav-link:hover, .footer-link:hover, .footer-clean a:hover {
 /* Espaciado extra para última sección CTA para evitar superposición con footer */
 section.gradient-bg {
     padding-bottom: 10rem !important;
+    position: relative;
+    z-index: 10;
+    margin-top: 2rem;
+    clear: both;
+}
+
+/* Asegurar que FAQ no se superponga */
+section[class*="bg-gray-50"] {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 0;
 }
 
 @media (max-width: 768px) {
     section.gradient-bg {
         padding-bottom: 15rem !important;
+        margin-top: 3rem;
     }
 }
  
