@@ -1,5 +1,7 @@
 // chat-widget.js
 (function () {
+  console.log('🔧 Chat widget iniciando...');
+  
   // Configuración
   const WIDGET_COLOR = '#1a365d'; // Azul institucional
   const BUTTON_TEXT = '¿Tienes dudas? Chatea con Red Judicial';
@@ -14,6 +16,8 @@
   `;
   bubble.title = BUTTON_TEXT;
   document.body.appendChild(bubble);
+  
+  console.log('✅ Burbuja de chat creada y agregada al DOM');
 
   // Crear modal (inicialmente oculto)
   let modal = null;
