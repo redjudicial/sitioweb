@@ -1319,7 +1319,8 @@ input:checked + .toggle-slider:before {
 .footer {
     background: #23272f;
     color: #fff;
-    padding: 2rem 0;
+    padding: 3rem 0 2rem 0;
+    margin-top: 2rem;
 }
 
 .footer .container {
@@ -1517,6 +1518,11 @@ input:checked + .toggle-slider:before {
     .footer-links {
         flex-direction: column;
         gap: 0.5rem;
+    }
+    
+    /* Espaciado adicional en mobile para evitar superposición con chat widget */
+    .gradient-bg {
+        padding-bottom: 6rem !important;
     }
 }
 
