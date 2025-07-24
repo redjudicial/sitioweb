@@ -157,6 +157,22 @@ nano styles.css
 nano estudiantes.css
 ```
 
+#### 5. **GitHub Actions no actualiza archivos en producción**
+**Problema**: Los archivos locales están actualizados pero el servidor muestra versión antigua
+**Síntomas**: 
+- Título antiguo en el navegador
+- Colores antiguos
+- CSS no actualizado
+**Solución de emergencia**:
+```bash
+# Copiar manualmente el archivo problemático
+scp -i ~/.ssh/LightsailDefaultKey-us-east-1.pem estudiantes.html bitnami@23.22.241.121:/opt/bitnami/wordpress/
+
+# Verificar que se copió correctamente
+ssh -i ~/.ssh/LightsailDefaultKey-us-east-1.pem bitnami@23.22.241.121 "head -5 /opt/bitnami/wordpress/estudiantes.html"
+```
+**Prevención**: Revisar que el GitHub Action esté configurado para copiar a `/opt/bitnami/wordpress/`
+
 ### 🔧 Comandos Útiles de Administración
 
 ```bash
