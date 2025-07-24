@@ -171,6 +171,26 @@ nano estudiantes.css
 - Eliminado paso problemático de copia a subdirectorio inexistente
 - Mejorado comando de copia con verificación explícita
 - Agregado paso de verificación del deploy
+
+**⚠️ PREVENCIÓN PARA QUE NO VUELVA A OCURRIR:**
+
+1. **Nunca usar `|| true` en comandos críticos** - Oculta errores importantes
+2. **Verificar que los directorios existen** antes de copiar archivos
+3. **Siempre incluir pasos de verificación** en el deploy
+4. **Monitorear los logs del GitHub Action** después de cada push
+5. **Verificar timestamps de archivos** en servidor después del deploy
+
+**🔍 MONITOREO POST-DEPLOY:**
+```bash
+# Verificar que archivos se actualizaron
+ssh -i ~/.ssh/LightsailDefaultKey-us-east-1.pem bitnami@23.22.241.121 "ls -la /opt/bitnami/wordpress/*.css /opt/bitnami/wordpress/*.html"
+
+# Verificar que backend está corriendo
+ssh -i ~/.ssh/LightsailDefaultKey-us-east-1.pem bitnami@23.22.241.121 "pm2 status"
+
+# Verificar que cambios se ven en el sitio
+curl -s "https://www.redjudicial.cl/estudiantes.html" | grep -o "chat-widget.js[^\"']*"
+```
 **Solución de emergencia** (si vuelve a fallar):
 ```bash
 # Copiar manualmente el archivo problemático
@@ -214,6 +234,67 @@ Cuando haces cambios al landing:
 3. ✅ **Verificar** que archivos llegaron a ambos directorios
 4. ⚠️ **Si no se ven cambios**: Limpiar cache de Cloudflare
 5. ✅ **Confirmar** en www.redjudicial.cl
+
+### 🔍 Checklist de Verificación Post-Deploy (OBLIGATORIO)
+
+**Después de cada `git push`, verificar:**
+
+1. **✅ GitHub Action completó exitosamente**
+   - Ir a GitHub → Actions → Verificar que el último deploy fue exitoso
+   - Revisar logs si hay errores
+
+2. **✅ Archivos actualizados en servidor**
+   ```bash
+   ssh -i ~/.ssh/LightsailDefaultKey-us-east-1.pem bitnami@23.22.241.121 "ls -la /opt/bitnami/wordpress/*.css /opt/bitnami/wordpress/*.html"
+   ```
+   - Verificar que timestamps son recientes (mismo día)
+
+3. **✅ Backend funcionando**
+   ```bash
+   ssh -i ~/.ssh/LightsailDefaultKey-us-east-1.pem bitnami@23.22.241.121 "pm2 status"
+   ```
+   - Debe mostrar `redjudicial-backend` como `online`
+
+4. **✅ Chat funcionando**
+   ```bash
+   curl -s "https://www.redjudicial.cl/api/chat" -X POST -H "Content-Type: application/json" -d '{"message":"test"}'
+   ```
+   - Debe devolver respuesta JSON válida
+
+5. **✅ Cambios visibles en el sitio**
+   - Abrir https://www.redjudicial.cl/estudiantes.html
+   - Verificar que cambios se ven correctamente
+
+**🚨 SI ALGUNO FALLA:**
+- Revisar logs del GitHub Action
+- Usar solución de emergencia manual
+- Reportar problema inmediatamente
+
+### ⚠️ SEÑALES DE ADVERTENCIA (PROBLEMA INMINENTE)
+
+**Si ves estos síntomas, el GitHub Action está fallando:**
+
+1. **🔄 GitHub Action se ejecuta pero archivos no se actualizan**
+   - Timestamps de archivos en servidor son antiguos
+   - Cambios no aparecen en el sitio
+
+2. **📁 Directorios inexistentes en comandos**
+   - Errores sobre `/home/bitnami/landing/landing/`
+   - Comandos que fallan silenciosamente
+
+3. **🤐 Comandos con `|| true` en logs**
+   - Errores ocultos en el deploy
+   - Deploy "exitoso" pero archivos no actualizados
+
+4. **🔄 Backend no responde después del deploy**
+   - Chat no funciona
+   - API retorna errores
+
+**🎯 ACCIÓN INMEDIATA:**
+- Revisar `.github/workflows/deploy.yml` por comandos problemáticos
+- Verificar que todos los directorios referenciados existen
+- Eliminar `|| true` de comandos críticos
+- Agregar pasos de verificación explícita
 
 ### 🆘 Contacto de Emergencia
 
