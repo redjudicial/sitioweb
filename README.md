@@ -98,6 +98,98 @@ El archivo `.github/workflows/deploy.yml` maneja el deploy automático:
 - ✅ Mantenimiento más fácil
 - ✅ Carga más rápida (solo el CSS necesario)
 
+---
+
+## 🔐 CONFIGURACIÓN DE GITHUB ACTIONS - PROBLEMA RESUELTO
+
+### ⚠️ PROBLEMA CRÍTICO: Token de GitHub Incorrecto
+
+**Fecha del problema:** 24 de Julio 2025  
+**Estado:** ✅ RESUELTO
+
+#### 🔍 DIAGNÓSTICO DEL PROBLEMA:
+
+El chat widget no aparecía en la posición correcta en `estudiantes.html` debido a un problema de autenticación en GitHub Actions.
+
+**Síntomas:**
+- ✅ GitHub Action se ejecutaba correctamente
+- ✅ Archivos se subían a GitHub
+- ❌ Archivos NO se copiaban al servidor
+- ❌ CSS no se actualizaba en producción
+- ❌ Chat widget aparecía en posición incorrecta
+
+#### 🛠️ CAUSA RAÍZ:
+
+**Token de GitHub incorrecto** - Se estaba usando el token de la cuenta **docemonos** en lugar del token de la cuenta **redjudicial**.
+
+**Permisos comparados:**
+
+**Token docemonos (INCORRECTO):**
+```json
+"permissions": {
+  "admin": false,
+  "maintain": false,
+  "push": false,
+  "triage": false,
+  "pull": true
+}
+```
+
+**Token redjudicial (CORRECTO):**
+```json
+"permissions": {
+  "admin": true,
+  "maintain": true,
+  "push": true,
+  "triage": true,
+  "pull": true
+}
+```
+
+#### ✅ SOLUCIÓN APLICADA:
+
+1. **Identificar el token correcto:** Token de la cuenta propietaria del repositorio
+2. **Actualizar `APIS_Y_CREDENCIALES.env`:**
+   ```bash
+   GITHUB_TOKEN=TU_TOKEN_DE_REDJUDICIAL_AQUI
+   ```
+3. **Verificar permisos de administrador**
+4. **Forzar nuevo deployment con cache busting**
+
+#### 🚨 PREVENCIÓN PARA EL FUTURO:
+
+**Siempre verificar:**
+1. **Token de GitHub:** Debe ser de la cuenta propietaria del repositorio
+2. **Permisos:** Debe tener `admin: true` para acceder a secrets
+3. **Secrets:** `DEPLOY_KEY` debe estar configurado correctamente
+4. **Cache:** Usar parámetros de cache busting (`?v=X.X`) para forzar actualizaciones
+
+#### 📋 COMANDOS DE VERIFICACIÓN:
+
+```bash
+# Verificar token de GitHub
+curl -H "Authorization: token TU_TOKEN" "https://api.github.com/repos/redjudicial/sitioweb"
+
+# Verificar permisos
+curl -H "Authorization: token TU_TOKEN" "https://api.github.com/repos/redjudicial/sitioweb" | grep -o '"permissions":[^}]*'
+
+# Verificar secrets
+curl -H "Authorization: token TU_TOKEN" "https://api.github.com/repos/redjudicial/sitioweb/actions/secrets"
+
+# Verificar deployment
+curl -s "https://www.redjudicial.cl/estudiantes.css?v=X.X" | grep "VERSION"
+```
+
+#### 🎯 RESULTADO FINAL:
+
+- ✅ **Chat widget funciona correctamente**
+- ✅ **Aparece en posición correcta (esquina inferior derecha)**
+- ✅ **GitHub Action funciona perfectamente**
+- ✅ **Deployment automático funcionando**
+- ✅ **CSS se actualiza correctamente**
+
+**Lección aprendida:** El problema estaba en la autenticación de GitHub, no en el código.
+
 **Reglas importantes:**
 - Cambios en `styles.css` NO afectan `estudiantes.html`
 - Cambios en `estudiantes.css` NO afectan `index.html`
