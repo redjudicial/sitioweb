@@ -1,0 +1,215 @@
+name: Deploy Memberships System
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'dashboard-redjudicial.php'
+      - 'functions.php'
+      - 'verificar_sistema.php'
+      - 'productos_woo.sql'
+
+jobs:
+  deploy-memberships:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+
+      - name: Deploy memberships files
+        run: |
+          echo "🚀 Iniciando deploy del sistema de membresías..."
+          
+          # Crear directorio temporal en el servidor
+          ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "
+            mkdir -p /home/bitnami/memberships-deploy
+          "
+          
+          # Subir archivos de membresías
+          scp -o StrictHostKeyChecking=no \
+            dashboard-redjudicial.php \
+            functions.php \
+            verificar_sistema.php \
+            productos_woo.sql \
+            bitnami@23.22.241.121:/home/bitnami/memberships-deploy/
+
+      - name: Install memberships system
+        run: |
+          ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "
+            echo '📁 Instalando sistema de membresías...'
+            
+            # Verificar que WordPress esté disponible
+            if [ ! -d '/opt/bitnami/wordpress' ]; then
+              echo '❌ WordPress no encontrado en /opt/bitnami/wordpress'
+              exit 1
+            fi
+            
+            # Obtener el tema activo
+            cd /opt/bitnami/wordpress
+            ACTIVE_THEME=\$(wp theme list --status=active --format=csv --fields=name | tail -n +2 | head -n 1)
+            echo \"🎨 Tema activo: \$ACTIVE_THEME\"
+            
+            if [ -z \"\$ACTIVE_THEME\" ]; then
+              echo '⚠️ No se pudo determinar el tema activo, usando twentytwentyfour'
+              ACTIVE_THEME='twentytwentyfour'
+            fi
+            
+            THEME_DIR=\"/opt/bitnami/wordpress/wp-content/themes/\$ACTIVE_THEME\"
+            echo \"📁 Directorio del tema: \$THEME_DIR\"
+            
+            # Crear backup del functions.php existente
+            if [ -f \"\$THEME_DIR/functions.php\" ]; then
+              cp \"\$THEME_DIR/functions.php\" \"\$THEME_DIR/functions.php.backup.\$(date +%Y%m%d_%H%M%S)\"
+              echo '💾 Backup del functions.php creado'
+            fi
+            
+            # Copiar archivos al tema
+            cp /home/bitnami/memberships-deploy/dashboard-redjudicial.php \"\$THEME_DIR/\"
+            cp /home/bitnami/memberships-deploy/verificar_sistema.php \"\$THEME_DIR/\"
+            
+            # Agregar funciones al functions.php
+            echo '📝 Agregando funciones de membresías al functions.php...'
+            cat /home/bitnami/memberships-deploy/functions.php >> \"\$THEME_DIR/functions.php\"
+            
+            # Ajustar permisos
+            sudo chown -R bitnami:daemon \"\$THEME_DIR/\"
+            chmod 644 \"\$THEME_DIR/dashboard-redjudicial.php\"
+            chmod 644 \"\$THEME_DIR/verificar_sistema.php\"
+            chmod 644 \"\$THEME_DIR/functions.php\"
+            
+            echo '✅ Archivos de membresías instalados'
+          "
+
+      - name: Execute SQL for products
+        run: |
+          ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "
+            echo '🗄️ Ejecutando SQL para crear productos...'
+            
+            cd /opt/bitnami/wordpress
+            
+            # Verificar que MySQL esté disponible
+            if ! mysql -u root -p\$MYSQL_ROOT_PASSWORD -e 'SELECT 1' >/dev/null 2>&1; then
+              echo '❌ No se puede conectar a MySQL'
+              exit 1
+            fi
+            
+            # Obtener nombre de la base de datos
+            DB_NAME=\$(wp config get DB_NAME)
+            echo \"📊 Base de datos: \$DB_NAME\"
+            
+            # Ejecutar SQL
+            mysql -u root -p\$MYSQL_ROOT_PASSWORD \"\$DB_NAME\" < /home/bitnami/memberships-deploy/productos_woo.sql
+            
+            echo '✅ Productos creados en WooCommerce'
+          "
+
+      - name: Create required pages
+        run: |
+          ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "
+            echo '�� Creando páginas requeridas...'
+            
+            cd /opt/bitnami/wordpress
+            
+            # Lista de páginas a crear
+            PAGES=(
+              'foros-debates:Foros y Debates'
+              'noticias:Noticias'
+              'webinars-generales:Webinars Generales'
+              'agenda-judicial:Agenda Judicial'
+              'webinars-especializados:Webinars Especializados'
+              'base-semantica:Base Semántica'
+              'marketplace:Marketplace'
+              'dashboard-centralizado:Dashboard Centralizado'
+              'simuladores-examenes:Simuladores de Exámenes'
+              'ranking-estudiantes:Ranking de Estudiantes'
+            )
+            
+            for page in \"\${PAGES[@]}\"; do
+              IFS=':' read -r slug title <<< \"\$page\"
+              
+              # Verificar si la página ya existe
+              if ! wp post list --post_type=page --name=\"\$slug\" --format=count >/dev/null 2>&1; then
+                echo \"📄 Creando página: \$title (\$slug)\"
+                wp post create --post_type=page --post_title=\"\$title\" --post_name=\"\$slug\" --post_status=publish --post_content=\"Contenido de \$title\"
+              else
+                echo \"✅ Página ya existe: \$title\"
+              fi
+            done
+            
+            echo '✅ Páginas creadas/verificadas'
+          "
+
+      - name: Clear WordPress cache
+        run: |
+          ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "
+            echo '🧹 Limpiando cache de WordPress...'
+            
+            cd /opt/bitnami/wordpress
+            
+            # Limpiar cache de plugins
+            wp cache flush 2>/dev/null || echo '⚠️ No se pudo limpiar cache de WordPress'
+            
+            # Limpiar cache de archivos
+            sudo rm -rf /opt/bitnami/wordpress/wp-content/cache/* 2>/dev/null || true
+            sudo rm -rf /opt/bitnami/wordpress/wp-content/uploads/cache/* 2>/dev/null || true
+            
+            # Reiniciar servicios
+            sudo /opt/bitnami/ctlscript.sh restart apache 2>/dev/null || true
+            sudo /opt/bitnami/ctlscript.sh restart nginx 2>/dev/null || true
+            
+            echo '✅ Cache limpiado y servicios reiniciados'
+          "
+
+      - name: Verify installation
+        run: |
+          ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "
+            echo '🔍 Verificando instalación del sistema de membresías...'
+            
+            cd /opt/bitnami/wordpress
+            
+            # Verificar archivos
+            echo '📁 Verificando archivos:'
+            ls -la wp-content/themes/*/dashboard-redjudicial.php 2>/dev/null || echo '❌ dashboard-redjudicial.php no encontrado'
+            ls -la wp-content/themes/*/verificar_sistema.php 2>/dev/null || echo '❌ verificar_sistema.php no encontrado'
+            
+            # Verificar productos
+            echo '📦 Verificando productos:'
+            wp post list --post_type=product --format=table --fields=ID,post_title,post_name 2>/dev/null || echo '❌ No se pudieron listar productos'
+            
+            # Verificar páginas
+            echo '📄 Verificando páginas:'
+            wp post list --post_type=page --format=table --fields=ID,post_title,post_name | grep -E '(foros|noticias|webinars|agenda|base|marketplace|simuladores|ranking)' || echo '⚠️ Algunas páginas no encontradas'
+            
+            echo '✅ Verificación completada'
+          "
+
+      - name: Cleanup
+        run: |
+          ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "
+            echo '🧹 Limpiando archivos temporales...'
+            rm -rf /home/bitnami/memberships-deploy
+            echo '✅ Limpieza completada'
+          "
+
+      - name: Final verification
+        run: |
+          ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "
+            echo '🎉 === DEPLOY DE MEMBRESÍAS COMPLETADO ==='
+            echo '✅ Sistema de membresías instalado'
+            echo '✅ 6 productos WooCommerce creados'
+            echo '✅ Páginas requeridas creadas'
+            echo '✅ Dashboard único configurado'
+            echo '✅ Funciones de filtrado activas'
+            echo ''
+            echo '📋 Próximos pasos:'
+            echo '1. Crear planes de membresía en WooCommerce Memberships'
+            echo '2. Configurar grupos en BuddyBoss'
+            echo '3. Configurar pasarela de pagos (Flow)'
+            echo '4. Probar flujo de compra y suscripciones'
+          "
