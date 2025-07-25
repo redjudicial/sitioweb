@@ -71,10 +71,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 showNotification('Por favor ingresa un email válido.', 'error');
                 return;
             }
-            // Phone validation
-            const phoneRegex = /^\+56\d{7,9}$/;
+            // Phone validation - el campo celular solo contiene números, el +56 está en el span
+            const phoneRegex = /^\d{7,9}$/;
             if (!phoneRegex.test(data.celular)) {
-                showNotification('Por favor ingresa un número de celular válido (ej: +56912345678).', 'error');
+                showNotification('Por favor ingresa un número de celular válido (7-9 dígitos).', 'error');
                 return;
             }
             // Rut validation (opcional, si el campo existe)
@@ -102,8 +102,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     })
                 });
                 if (res.ok) {
-            showNotification('¡Gracias por tu interés! Te contactaremos pronto.', 'success');
-            this.reset();
+                    showNotification('¡Formulario enviado con éxito! Te contactaremos pronto.', 'success');
+                    this.reset();
+                    // Ocultar campo "otro" si está visible
+                    const profesionOtroGroup = document.getElementById('profesion-otro-group');
+                    if (profesionOtroGroup) {
+                        profesionOtroGroup.style.display = 'none';
+                    }
                 } else {
                     const error = await res.json();
                     showNotification('Error al enviar el formulario: ' + (error.message || 'Intenta nuevamente.'), 'error');
@@ -426,44 +431,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // --- Envío a Supabase ---
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('contactForm');
-    form.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        const rut = document.getElementById('rut').value;
-        if (!validarRut(rut)) {
-            document.getElementById('rut-error').style.display = 'inline';
-            return;
-        }
-        // Recolectar datos
-        const data = {
-            nombres: document.getElementById('nombres').value,
-            apellidos: document.getElementById('apellidos').value,
-            email: document.getElementById('email').value,
-            celular: document.getElementById('celular').value,
-            profesion: document.getElementById('profesion').value,
-            profesion_otro: document.getElementById('profesion_otro') ? document.getElementById('profesion_otro').value : null,
-            rut: rut
-        };
-        // Enviar a Supabase
-        const res = await fetch(`${SUPABASE_URL}/rest/v1/postulantes`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'apikey': SUPABASE_ANON_KEY,
-                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-            },
-            body: JSON.stringify(data)
-        });
-        if (res.ok) {
-            alert('¡Postulación enviada con éxito!');
-            form.reset();
-            document.getElementById('profesion-otro-group').style.display = 'none';
-        } else {
-            alert('Error al enviar la postulación. Intenta nuevamente.');
-        }
-    });
-}); 
+// NOTA: El manejador de formulario principal ya está definido arriba en el archivo
+// y maneja tanto la validación como el envío a Supabase 
 
 // --- Scroll top button ---
 document.addEventListener('DOMContentLoaded', function() {
