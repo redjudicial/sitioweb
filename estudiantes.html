@@ -404,8 +404,8 @@
   </section>
 
   <!-- PRICING -->
-  <section id="precios" class="py-20 px-4 bg-white">
-    <div class="max-w-5xl mx-auto">
+  <section id="precios" class="py-20 px-4 bg-gray-50">
+    <div class="max-w-7xl mx-auto">
       <div class="text-center mb-16">
         <h2 class="text-4xl font-black text-judicial-blue mb-4">
           Planes que se adaptan a ti <i class="fas fa-dollar-sign text-judicial-blue"></i>
@@ -415,11 +415,11 @@
         </p>
       </div>
       
-      <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
         <!-- Free Plan -->
-        <div class="bg-gray-50 rounded-3xl p-8 border-2 border-gray-200">
+        <div class="bg-white rounded-3xl p-8 border-2 border-gray-200 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
           <div class="text-center">
-            <div class="w-16 h-16 bg-gray-400 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div class="w-16 h-16 bg-gradient-to-br from-gray-400 to-gray-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
               <i class="fas fa-gift text-2xl text-white"></i>
             </div>
             <h3 class="text-3xl font-black text-judicial-blue mb-2">Gratis</h3>
@@ -427,7 +427,7 @@
             <div class="text-5xl font-black text-judicial-blue mb-2">$0</div>
             <p class="text-gray-600 mb-8">Para siempre</p>
             
-            <button class="w-full bg-judicial-blue text-white font-bold py-4 px-8 rounded-full hover:bg-blue-700 transition mb-8">
+            <button class="w-full bg-gradient-to-r from-gray-500 to-gray-700 text-white font-bold py-4 px-8 rounded-full hover:from-gray-600 hover:to-gray-800 transition-all transform hover:scale-105 shadow-lg mb-8">
               Empezar Gratis
             </button>
             
@@ -461,248 +461,325 @@
         </div>
         
         <!-- Plus Plan -->
-        <div class="bg-judicial-blue rounded-3xl p-8 border-2 border-judicial-blue relative transform hover:scale-105 transition-transform shadow-xl">
-          <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-judicial-blue text-white px-6 py-2 rounded-full font-bold text-sm">
-            <i class="fas fa-fire mr-1"></i>Más Popular
+        <div class="bg-gradient-to-br from-blue-500 to-blue-700 rounded-3xl p-8 border-2 border-blue-400 relative transform hover:scale-105 transition-all shadow-2xl">
+          <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+            <span class="bg-gradient-to-r from-orange-400 to-red-500 text-white px-6 py-2 rounded-full text-sm font-bold shadow-lg">
+              MÁS POPULAR
+            </span>
           </div>
           
           <div class="text-center text-white">
-            <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-              <i class="fas fa-star text-2xl text-judicial-blue"></i>
+            <div class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+              <i class="fas fa-star text-2xl text-white"></i>
             </div>
             <h3 class="text-3xl font-black mb-2">Plus</h3>
             <p class="text-blue-100 mb-6">Para estudiantes que van en serio</p>
             <div class="text-5xl font-black mb-2">$4.990</div>
             <p class="text-blue-100 mb-8">/ mes</p>
             
-            <button class="w-full bg-white text-judicial-blue font-bold py-4 px-8 rounded-full hover:bg-gray-100 transition mb-8">
+            <button class="w-full bg-white text-blue-600 font-bold py-4 px-8 rounded-full hover:bg-gray-100 transition-all transform hover:scale-105 shadow-lg mb-8">
               Sí (7 días)
             </button>
             
             <div class="text-left space-y-3">
               <div class="flex items-center">
-                <i class="fas fa-check text-green-400 mr-3"></i>
-                <span>Todo lo del plan Gratis</span>
+                <i class="fas fa-check text-green-300 mr-3"></i>
+                <span class="text-white">Todo lo del plan Gratis</span>
               </div>
               <div class="flex items-center">
-                <i class="fas fa-check text-green-400 mr-3"></i>
-                <span>Acceso ilimitado a IA jurídica</span>
+                <i class="fas fa-check text-green-300 mr-3"></i>
+                <span class="text-white">Acceso ilimitado a IA jurídica</span>
               </div>
               <div class="flex items-center">
-                <i class="fas fa-check text-green-400 mr-3"></i>
-                <span>Simuladores de exámenes (uso limitado)</span>
+                <i class="fas fa-check text-green-300 mr-3"></i>
+                <span class="text-white">Simuladores de exámenes (uso limitado)</span>
               </div>
               <div class="flex items-center">
-                <i class="fas fa-check text-green-400 mr-3"></i>
-                <span>Normas legales (búsqueda semántica avanzada)</span>
+                <i class="fas fa-check text-green-300 mr-3"></i>
+                <span class="text-white">Normas legales (búsqueda semántica avanzada)</span>
               </div>
               <div class="flex items-center">
-                <i class="fas fa-check text-green-400 mr-3"></i>
-                <span>Ranking de estudiantes destacados</span>
+                <i class="fas fa-check text-green-300 mr-3"></i>
+                <span class="text-white">Ranking de estudiantes destacados</span>
               </div>
               <div class="flex items-center">
-                <i class="fas fa-check text-green-400 mr-3"></i>
-                <span>Casos prácticos con corrección guiada</span>
+                <i class="fas fa-check text-green-300 mr-3"></i>
+                <span class="text-white">Casos prácticos con corrección guiada</span>
               </div>
             </div>
           </div>
         </div>
-
+        
         <!-- Elite Plan -->
-        <div class="bg-judicial-blue rounded-3xl p-8 border-2 border-judicial-blue relative shadow-xl">
-          <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-white text-judicial-blue px-6 py-2 rounded-full font-bold text-sm">
-            <i class="fas fa-crown mr-1"></i>Elite
-          </div>
-          
+        <div class="bg-gradient-to-br from-purple-600 to-indigo-800 rounded-3xl p-8 border-2 border-purple-400 relative shadow-2xl hover:shadow-3xl transition-all transform hover:-translate-y-1">
           <div class="text-center text-white">
-            <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-              <i class="fas fa-crown text-2xl text-judicial-blue"></i>
+            <div class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+              <i class="fas fa-crown text-2xl text-white"></i>
             </div>
             <h3 class="text-3xl font-black mb-2">Elite</h3>
             <p class="text-purple-100 mb-6">Para quienes aspiran a la excelencia</p>
             <div class="text-5xl font-black mb-2">$9.990</div>
             <p class="text-purple-100 mb-8">/ mes</p>
             
-            <button class="w-full bg-white text-judicial-blue font-bold py-4 px-8 rounded-full hover:bg-gray-100 transition mb-8">
+            <button class="w-full bg-white text-purple-600 font-bold py-4 px-8 rounded-full hover:bg-gray-100 transition-all transform hover:scale-105 shadow-lg mb-8">
               Sí (7 días)
             </button>
             
             <div class="text-left space-y-3">
               <div class="flex items-center">
-                <i class="fas fa-check text-green-400 mr-3"></i>
-                <span>Todo lo del plan Plus</span>
+                <i class="fas fa-check text-green-300 mr-3"></i>
+                <span class="text-white">Todo los del plan Plus</span>
               </div>
               <div class="flex items-center">
-                <i class="fas fa-check text-green-400 mr-3"></i>
-                <span>Acceso a la red nacional de procuradores</span>
+                <i class="fas fa-check text-green-300 mr-3"></i>
+                <span class="text-white">Acceso a la red nacional de procuradores</span>
               </div>
               <div class="flex items-center">
-                <i class="fas fa-check text-green-400 mr-3"></i>
-                <span>Simuladores de exámenes sin límite</span>
+                <i class="fas fa-check text-green-300 mr-3"></i>
+                <span class="text-white">Simuladores de exámenes sin límite</span>
               </div>
               <div class="flex items-center">
-                <i class="fas fa-check text-green-400 mr-3"></i>
-                <span>IA jurídica ilimitada en todas las materias</span>
+                <i class="fas fa-check text-green-300 mr-3"></i>
+                <span class="text-white">IA jurídica ilimitada en todas las materias</span>
               </div>
               <div class="flex items-center">
-                <i class="fas fa-check text-green-400 mr-3"></i>
-                <span>Acceso preferente a recursos exclusivos</span>
+                <i class="fas fa-check text-green-300 mr-3"></i>
+                <span class="text-white">Acceso preferente a recursos exclusivos</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-check text-green-300 mr-3"></i>
+                <span class="text-white">Certificaciones especiales</span>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- EJERCER SECTION -->
-  <section id="ejerciendo" class="py-20 px-4 bg-gray-50">
-    <div class="max-w-7xl mx-auto">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl font-black text-judicial-blue mb-4">
-          ¿Quieres Ejercer? <i class="fas fa-balance-scale text-judicial-blue"></i>
-        </h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Conectamos estudiantes habilitados con abogados que necesitan apoyo. 
-          Encuentra oportunidades laborales reales mientras desarrollas tu experiencia.
-        </p>
-      </div>
-      
-      <div class="grid lg:grid-cols-2 gap-12 items-center mb-16">
-        <!-- Left Column - Benefits -->
-        <div class="space-y-8">
-          <div class="bg-white rounded-2xl p-8 shadow-lg">
-            <div class="flex items-start space-x-4">
-              <div class="w-12 h-12 bg-judicial-blue rounded-full flex items-center justify-center flex-shrink-0 shadow-md">
-                <i class="fas fa-handshake text-xl text-white"></i>
-              </div>
-              <div>
-                <h3 class="text-xl font-bold text-judicial-blue mb-2">Conexión Directa</h3>
-                <p class="text-gray-600">Los abogados te contactan directamente cuando necesitan apoyo en casos específicos.</p>
-              </div>
-            </div>
-          </div>
-          
-          <div class="bg-white rounded-2xl p-8 shadow-lg">
-            <div class="flex items-start space-x-4">
-              <div class="w-12 h-12 bg-judicial-blue rounded-full flex items-center justify-center flex-shrink-0 shadow-md">
-                <i class="fas fa-briefcase text-xl text-white"></i>
-              </div>
-              <div>
-                <h3 class="text-xl font-bold text-judicial-blue mb-2">Experiencia Real</h3>
-                <p class="text-gray-600">Trabaja en casos reales, desarrolla habilidades prácticas y construye tu CV.</p>
-              </div>
-            </div>
-          </div>
-          
-          <div class="bg-white rounded-2xl p-8 shadow-lg">
-            <div class="flex items-start space-x-4">
-              <div class="w-12 h-12 bg-judicial-blue rounded-full flex items-center justify-center flex-shrink-0 shadow-md">
-                <i class="fas fa-map-marker-alt text-xl text-white"></i>
-              </div>
-              <div>
-                <h3 class="text-xl font-bold text-judicial-blue mb-2">Flexibilidad Total</h3>
-                <p class="text-gray-600">Trabaja desde tu casa, elige tus horarios y las áreas que te interesan.</p>
-              </div>
-            </div>
-          </div>
+      <!-- Tabla Comparativa -->
+      <div class="bg-white rounded-2xl p-8 shadow-lg">
+        <h3 class="text-2xl font-bold text-judicial-blue mb-6 text-center">Comparación Detallada de Planes</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b-2 border-gray-200">
+                <th class="text-left py-4 px-4 font-bold text-judicial-blue">Características</th>
+                <th class="text-center py-4 px-4 font-bold text-gray-600">Gratis</th>
+                <th class="text-center py-4 px-4 font-bold text-blue-600">Plus</th>
+                <th class="text-center py-4 px-4 font-bold text-purple-600">Elite</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-gray-100">
+                <td class="py-3 px-4 font-medium">Apuntes explicativos</td>
+                <td class="text-center py-3 px-4"><i class="fas fa-check text-green-500"></i></td>
+                <td class="text-center py-3 px-4"><i class="fas fa-check text-green-500"></i></td>
+                <td class="text-center py-3 px-4"><i class="fas fa-check text-green-500"></i></td>
+              </tr>
+              <tr class="border-b border-gray-100">
+                <td class="py-3 px-4 font-medium">Foros y debates</td>
+                <td class="text-center py-3 px-4"><i class="fas fa-check text-green-500"></i></td>
+                <td class="text-center py-3 px-4"><i class="fas fa-check text-green-500"></i></td>
+                <td class="text-center py-3 px-4"><i class="fas fa-check text-green-500"></i></td>
+              </tr>
+              <tr class="border-b border-gray-100">
+                <td class="py-3 px-4 font-medium">Grupos especializados</td>
+                <td class="text-center py-3 px-4"><i class="fas fa-check text-green-500"></i></td>
+                <td class="text-center py-3 px-4"><i class="fas fa-check text-green-500"></i></td>
+                <td class="text-center py-3 px-4"><i class="fas fa-check text-green-500"></i></td>
+              </tr>
+              <tr class="border-b border-gray-100">
+                <td class="py-3 px-4 font-medium">Noticias legales</td>
+                <td class="text-center py-3 px-4"><i class="fas fa-check text-green-500"></i></td>
+                <td class="text-center py-3 px-4"><i class="fas fa-check text-green-500"></i></td>
+                <td class="text-center py-3 px-4"><i class="fas fa-check text-green-500"></i></td>
+              </tr>
+              <tr class="border-b border-gray-100">
+                <td class="py-3 px-4 font-medium">Webinars generales</td>
+                <td class="text-center py-3 px-4"><i class="fas fa-check text-green-500"></i></td>
+                <td class="text-center py-3 px-4"><i class="fas fa-check text-green-500"></i></td>
+                <td class="text-center py-3 px-4"><i class="fas fa-check text-green-500"></i></td>
+              </tr>
+              <tr class="border-b border-gray-100">
+                <td class="py-3 px-4 font-medium">Normas legales</td>
+                <td class="text-center py-3 px-4"><i class="fas fa-check text-green-500"></i></td>
+                <td class="text-center py-3 px-4"><i class="fas fa-check text-green-500"></i></td>
+                <td class="text-center py-3 px-4"><i class="fas fa-check text-green-500"></i></td>
+              </tr>
+              <tr class="border-b border-gray-100">
+                <td class="py-3 px-4 font-medium">IA jurídica</td>
+                <td class="text-center py-3 px-4"><i class="fas fa-times text-red-400"></i></td>
+                <td class="text-center py-3 px-4"><i class="fas fa-check text-green-500"></i></td>
+                <td class="text-center py-3 px-4"><i class="fas fa-check text-green-500"></i></td>
+              </tr>
+              <tr class="border-b border-gray-100">
+                <td class="py-3 px-4 font-medium">Simuladores de exámenes</td>
+                <td class="text-center py-3 px-4"><i class="fas fa-times text-red-400"></i></td>
+                <td class="text-center py-3 px-4"><i class="fas fa-check text-green-500"></i></td>
+                <td class="text-center py-3 px-4"><i class="fas fa-check text-green-500"></i></td>
+              </tr>
+              <tr class="border-b border-gray-100">
+                <td class="py-3 px-4 font-medium">Ranking de estudiantes</td>
+                <td class="text-center py-3 px-4"><i class="fas fa-times text-red-400"></i></td>
+                <td class="text-center py-3 px-4"><i class="fas fa-check text-green-500"></i></td>
+                <td class="text-center py-3 px-4"><i class="fas fa-check text-green-500"></i></td>
+              </tr>
+              <tr class="border-b border-gray-100">
+                <td class="py-3 px-4 font-medium">Casos prácticos</td>
+                <td class="text-center py-3 px-4"><i class="fas fa-times text-red-400"></i></td>
+                <td class="text-center py-3 px-4"><i class="fas fa-check text-green-500"></i></td>
+                <td class="text-center py-3 px-4"><i class="fas fa-check text-green-500"></i></td>
+              </tr>
+              <tr class="border-b border-gray-100">
+                <td class="py-3 px-4 font-medium">Red de procuradores</td>
+                <td class="text-center py-3 px-4"><i class="fas fa-times text-red-400"></i></td>
+                <td class="text-center py-3 px-4"><i class="fas fa-times text-red-400"></i></td>
+                <td class="text-center py-3 px-4"><i class="fas fa-check text-green-500"></i></td>
+              </tr>
+              <tr class="border-b border-gray-100">
+                <td class="py-3 px-4 font-medium">Simuladores ilimitados</td>
+                <td class="text-center py-3 px-4"><i class="fas fa-times text-red-400"></i></td>
+                <td class="text-center py-3 px-4"><i class="fas fa-times text-red-400"></i></td>
+                <td class="text-center py-3 px-4"><i class="fas fa-check text-green-500"></i></td>
+              </tr>
+              <tr class="border-b border-gray-100">
+                <td class="py-3 px-4 font-medium">IA ilimitada</td>
+                <td class="text-center py-3 px-4"><i class="fas fa-times text-red-400"></i></td>
+                <td class="text-center py-3 px-4"><i class="fas fa-times text-red-400"></i></td>
+                <td class="text-center py-3 px-4"><i class="fas fa-check text-green-500"></i></td>
+              </tr>
+              <tr class="border-b border-gray-100">
+                <td class="py-3 px-4 font-medium">Recursos exclusivos</td>
+                <td class="text-center py-3 px-4"><i class="fas fa-times text-red-400"></i></td>
+                <td class="text-center py-3 px-4"><i class="fas fa-times text-red-400"></i></td>
+                <td class="text-center py-3 px-4"><i class="fas fa-check text-green-500"></i></td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-medium">Certificaciones</td>
+                <td class="text-center py-3 px-4"><i class="fas fa-times text-red-400"></i></td>
+                <td class="text-center py-3 px-4"><i class="fas fa-times text-red-400"></i></td>
+                <td class="text-center py-3 px-4"><i class="fas fa-check text-green-500"></i></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        
-        <!-- Right Column - How it works -->
-        <div class="bg-white rounded-3xl p-8 shadow-xl">
-          <h3 class="text-2xl font-bold text-judicial-blue mb-6 text-center">¿Cómo Funciona?</h3>
-          
-          <div class="space-y-6">
-            <div class="flex items-center space-x-4">
-              <div class="w-8 h-8 bg-judicial-blue text-white rounded-full flex items-center justify-center font-bold">1</div>
-              <div>
-                <h4 class="font-semibold text-gray-800">Actualiza tu Perfil</h4>
-                <p class="text-gray-600 text-sm">Completa tu información: universidad, región, áreas de interés, experiencia.</p>
-              </div>
-            </div>
-            
-            <div class="flex items-center space-x-4">
-              <div class="w-8 h-8 bg-judicial-blue text-white rounded-full flex items-center justify-center font-bold">2</div>
-              <div>
-                <h4 class="font-semibold text-gray-800">Recibe Oportunidades</h4>
-                <p class="text-gray-600 text-sm">Los abogados ven tu perfil y te contactan cuando necesitan apoyo.</p>
-              </div>
-            </div>
-            
-            <div class="flex items-center space-x-4">
-              <div class="w-8 h-8 bg-judicial-blue text-white rounded-full flex items-center justify-center font-bold">3</div>
-              <div>
-                <h4 class="font-semibold text-gray-800">Trabaja y Gana</h4>
-                <p class="text-gray-600 text-sm">Acuerda términos, desarrolla el trabajo y recibe tu pago.</p>
-              </div>
-            </div>
-          </div>
-          
-          <div class="mt-8 p-4 bg-blue-50 rounded-xl">
-            <p class="text-sm text-judicial-blue font-medium">
-              <i class="fas fa-info-circle mr-2"></i>
-              Solo disponible para estudiantes con Plan Elite ($9.990/mes)
-            </p>
-          </div>
-        </div>
       </div>
-      
-
     </div>
   </section>
 
   <!-- FAQ -->
-  <section class="py-20 px-4 bg-gray-50" style="position: relative; z-index: 1;">
+  <section id="faq" class="py-20 px-4 bg-white">
     <div class="max-w-4xl mx-auto">
       <div class="text-center mb-16">
         <h2 class="text-4xl font-black text-judicial-blue mb-4">
-          Preguntas Frecuentes <i class="fas fa-question-circle text-judicial-purple"></i>
+          Preguntas Frecuentes <i class="fas fa-question-circle text-judicial-blue"></i>
         </h2>
         <p class="text-xl text-gray-600">
           Todo lo que necesitas saber antes de empezar
         </p>
       </div>
       
-      <div class="space-y-6">
-        <div class="bg-white rounded-2xl p-6 shadow-lg">
-          <h3 class="text-xl font-bold text-judicial-blue mb-3">¿Realmente es gratis para empezar?</h3>
-          <p class="text-gray-600">Sí, completamente gratis. No pedimos tarjeta de crédito ni datos de pago. Solo tu email y listo.</p>
+      <div class="space-y-4">
+        <!-- FAQ 1 -->
+        <div class="faq-item bg-gray-50 rounded-lg overflow-hidden">
+          <div class="faq-question cursor-pointer p-6 flex justify-between items-center hover:bg-gray-100 transition-colors">
+            <h3 class="text-lg font-bold text-judicial-blue">¿Realmente es gratis para empezar?</h3>
+            <i class="fas fa-chevron-down text-judicial-blue transition-transform"></i>
+          </div>
+          <div class="faq-answer hidden p-6 pt-0">
+            <p class="text-gray-600">Sí, completamente gratis. No pedimos tarjeta de crédito ni datos de pago. Solo tu email y listo.</p>
+          </div>
         </div>
         
-        <div class="bg-white rounded-2xl p-6 shadow-lg">
-          <h3 class="text-xl font-bold text-judicial-blue mb-3">¿Funciona para todas las universidades?</h3>
-          <p class="text-gray-600">Nuestro contenido está alineado con el programa común de las universidades chilenas. Funciona para U. de Chile, UC, UDP, UDD y más.</p>
+        <!-- FAQ 2 -->
+        <div class="faq-item bg-gray-50 rounded-lg overflow-hidden">
+          <div class="faq-question cursor-pointer p-6 flex justify-between items-center hover:bg-gray-100 transition-colors">
+            <h3 class="text-lg font-bold text-judicial-blue">¿Funciona para todas las universidades?</h3>
+            <i class="fas fa-chevron-down text-judicial-blue transition-transform"></i>
+          </div>
+          <div class="faq-answer hidden p-6 pt-0">
+            <p class="text-gray-600">Nuestro contenido está alineado con el programa común de las universidades chilenas. Funciona para U. de Chile, UC, UDP, UDD y más.</p>
+          </div>
         </div>
         
-        <div class="bg-white rounded-2xl p-6 shadow-lg">
-          <h3 class="text-xl font-bold text-judicial-blue mb-3">¿Qué tan inteligente es la IA jurídica?</h3>
-          <p class="text-gray-600">Está entrenada específicamente con legislación chilena, jurisprudencia y doctrina. No es un ChatGPT genérico, es tu compañero jurídico especializado.</p>
+        <!-- FAQ 3 -->
+        <div class="faq-item bg-gray-50 rounded-lg overflow-hidden">
+          <div class="faq-question cursor-pointer p-6 flex justify-between items-center hover:bg-gray-100 transition-colors">
+            <h3 class="text-lg font-bold text-judicial-blue">¿Qué tan inteligente es la IA jurídica?</h3>
+            <i class="fas fa-chevron-down text-judicial-blue transition-transform"></i>
+          </div>
+          <div class="faq-answer hidden p-6 pt-0">
+            <p class="text-gray-600">Está entrenada específicamente con legislación chilena, jurisprudencia y doctrina. No es un ChatGPT genérico, es tu compañero jurídico especializado.</p>
+          </div>
         </div>
         
-        <div class="bg-white rounded-2xl p-6 shadow-lg">
-          <h3 class="text-xl font-bold text-judicial-blue mb-3">¿Puedo cancelar cuando quiera?</h3>
-          <p class="text-gray-600">Por supuesto. Sin compromisos, sin letras chicas. Cancelas cuando quieras desde tu perfil.</p>
+        <!-- FAQ 4 -->
+        <div class="faq-item bg-gray-50 rounded-lg overflow-hidden">
+          <div class="faq-question cursor-pointer p-6 flex justify-between items-center hover:bg-gray-100 transition-colors">
+            <h3 class="text-lg font-bold text-judicial-blue">¿Puedo cancelar cuando quiera?</h3>
+            <i class="fas fa-chevron-down text-judicial-blue transition-transform"></i>
+          </div>
+          <div class="faq-answer hidden p-6 pt-0">
+            <p class="text-gray-600">Por supuesto. Sin compromisos, sin letras chicas. Cancelas cuando quieras desde tu perfil.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- FINAL CTA -->
-  <section class="py-20 px-4 pb-40 gradient-bg relative" style="z-index: 10;">
-    <div class="absolute inset-0" style="z-index: 1;">
-      <div class="absolute top-10 left-10 w-32 h-32 bg-white/10 rounded-full float-animation"></div>
-      <div class="absolute bottom-10 right-10 w-48 h-48 bg-white/10 rounded-full float-animation" style="animation-delay: 1s;"></div>
-    </div>
-    
-    <div class="max-w-4xl mx-auto text-center text-white relative" style="z-index: 2;">
-      <h2 class="text-5xl font-black mb-6" style="line-height: 1.2;">¿Listo para ser el mejor de tu clase? <i class="fas fa-crown text-white"></i></h2>
-      <p class="text-xl mb-8 max-w-2xl mx-auto">Únete a miles de estudiantes que ya están un paso adelante. Tu futuro jurídico comienza hoy.</p>
-      <div class="flex justify-center mb-8">
-                  <button class="bg-white text-judicial-blue font-bold py-4 px-10 rounded-full hover:bg-gray-100 transition transform hover:scale-105 text-lg">
-            <i class="fas fa-rocket mr-2"></i>Empezar Gratis Ahora
-          </button>
+  <section class="py-20 px-4 bg-gradient-to-br from-judicial-blue via-blue-800 to-indigo-900">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="mb-8">
+        <i class="fas fa-trophy text-6xl text-yellow-400 mb-6"></i>
+        <h2 class="text-4xl md:text-5xl font-black text-white mb-6">
+          ¿Listo para ser el mejor de tu clase? 🚀
+        </h2>
+        <p class="text-xl text-blue-100 mb-8 leading-relaxed">
+          <strong>Miles de estudiantes ya están transformando su futuro jurídico.</strong><br>
+          Únete a la comunidad que está revolucionando la educación legal en Chile.
+        </p>
       </div>
-      <div class="h-16"></div>
+      
+      <div class="grid md:grid-cols-3 gap-6 mb-10">
+        <div class="bg-white bg-opacity-10 rounded-lg p-6 backdrop-blur-sm">
+          <i class="fas fa-users text-3xl text-yellow-400 mb-4"></i>
+          <h3 class="text-white font-bold text-lg mb-2">5,000+ Estudiantes</h3>
+          <p class="text-blue-100">Ya confían en nosotros</p>
+        </div>
+        <div class="bg-white bg-opacity-10 rounded-lg p-6 backdrop-blur-sm">
+          <i class="fas fa-star text-3xl text-yellow-400 mb-4"></i>
+          <h3 class="text-white font-bold text-lg mb-2">4.9/5 Calificación</h3>
+          <p class="text-blue-100">De nuestros usuarios</p>
+        </div>
+        <div class="bg-white bg-opacity-10 rounded-lg p-6 backdrop-blur-sm">
+          <i class="fas fa-graduation-cap text-3xl text-yellow-400 mb-4"></i>
+          <h3 class="text-white font-bold text-lg mb-2">95% Mejora</h3>
+          <p class="text-blue-100">En promedio de notas</p>
+        </div>
+      </div>
+      
+      <div class="space-y-4">
+        <button class="bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-bold py-4 px-12 rounded-full text-lg hover:from-yellow-500 hover:to-orange-600 transition-all transform hover:scale-105 shadow-2xl">
+          <i class="fas fa-rocket mr-2"></i>
+          ¡EMPEZAR AHORA GRATIS!
+        </button>
+        <p class="text-blue-200 text-sm">
+          <i class="fas fa-shield-alt mr-1"></i>
+          Sin tarjeta de crédito • Cancelas cuando quieras • Acceso inmediato
+        </p>
+      </div>
+      
+      <div class="mt-12 pt-8 border-t border-blue-700">
+        <p class="text-blue-200 mb-4">
+          <i class="fas fa-clock mr-2"></i>
+          <strong>Oferta limitada:</strong> Los primeros 100 estudiantes que se registren hoy obtienen 30 días gratis del plan Plus
+        </p>
+        <div class="flex justify-center items-center space-x-4 text-yellow-400">
+          <i class="fas fa-fire text-2xl"></i>
+          <span class="font-bold">¡SOLO QUEDAN 47 CUPOS!</span>
+          <i class="fas fa-fire text-2xl"></i>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -772,6 +849,33 @@
       50% { transform: translateX(0); }
     }
   </style>
+  
+  <script>
+    // FAQ Toggle Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', function() {
+          const faqItem = this.parentElement;
+          const answer = faqItem.querySelector('.faq-answer');
+          const icon = this.querySelector('i');
+          
+          // Toggle the answer visibility
+          if (answer.classList.contains('hidden')) {
+            answer.classList.remove('hidden');
+            icon.style.transform = 'rotate(180deg)';
+            faqItem.classList.add('active');
+          } else {
+            answer.classList.add('hidden');
+            icon.style.transform = 'rotate(0deg)';
+            faqItem.classList.remove('active');
+          }
+        });
+      });
+    });
+  </script>
+  
   <script src="chat-widget.js?v=mdhotwiq"></script>
 </body>
 </html> 
