@@ -124,6 +124,12 @@ Host github.com-redjudicial
 - **Archivos**: `index.html` (CSS y JS)
 - **Resultado**: Cambios visibles inmediatamente
 
+**5. Limpieza de Cache Mejorada**
+- **Problema**: Múltiples plugins de cache (Redis + WP-Optimize)
+- **Solución**: Workflow actualizado para limpiar todos los caches
+- **Script manual**: `clear-cache-manual.sh` para limpieza inmediata
+- **Comandos**: `redis-cli FLUSHALL` + `wp wpo cache flush`
+
 ---
 
 ## 🛠️ Configuración Técnica
@@ -159,12 +165,16 @@ SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### **1. Cache y Deploy**
 - **Problema**: Cambios no visibles en producción
-- **Causa**: Cloudflare cache muy agresivo (max-age=31536000 = 1 año)
+- **Causa**: Múltiples capas de cache (Cloudflare + WordPress + Redis + WP-Optimize)
 - **Solución**: 
   - Cache busting con `?v=timestamp` en CSS/JS
-  - Limpieza automática de cache WordPress
-  - Logging mejorado en GitHub Actions
-  - **IMPORTANTE**: Agregar parámetros de cache busting a todos los recursos estáticos
+  - Limpieza automática de TODOS los caches:
+    - WordPress cache (`/wp-content/cache/`)
+    - WP-Optimize cache (`/wp-content/wpo-cache/`)
+    - Redis cache (`redis-cli FLUSHALL`)
+    - Cloudflare cache (API purge)
+  - Script manual: `clear-cache-manual.sh`
+  - **IMPORTANTE**: Verificar que todos los plugins de cache estén incluidos
 
 ### **2. SSH Keys**
 - **Problema**: Prompts de passphrase en deploy
