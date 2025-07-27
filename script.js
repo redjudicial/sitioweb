@@ -10,9 +10,13 @@ document.addEventListener('DOMContentLoaded', function() {
             if (targetId && targetId.startsWith('#')) {
             const targetSection = document.querySelector(targetId);
             if (targetSection) {
-                targetSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+                // Calcular offset para evitar que el header tape el contenido
+                const headerHeight = document.querySelector('.header').offsetHeight;
+                const targetPosition = targetSection.offsetTop - headerHeight - 40; // 40px extra de espacio
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
                 });
                 }
             } else {
@@ -370,7 +374,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Scroll to contact form
                 const contactSection = document.querySelector('#contacto');
                 if (contactSection) {
-                    contactSection.scrollIntoView({ behavior: 'smooth' });
+                    // Calcular offset para evitar que el header tape el contenido
+                    const headerHeight = document.querySelector('.header').offsetHeight;
+                    const targetPosition = contactSection.offsetTop - headerHeight - 40; // 40px extra de espacio
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
                 }
                 showNotification('Te contactaremos pronto para discutir tu plan personalizado', 'success');
                 return;
