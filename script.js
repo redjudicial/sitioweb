@@ -8,16 +8,36 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetId = this.getAttribute('href');
             // Solo scroll si es un anchor interno
             if (targetId && targetId.startsWith('#')) {
-            const targetSection = document.querySelector(targetId);
-            if (targetSection) {
-                // Calcular offset para evitar que el header tape el contenido
-                const headerHeight = document.querySelector('.header').offsetHeight;
-                const targetPosition = targetSection.offsetTop - headerHeight - 40; // 40px extra de espacio
-                
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    // Calcular offset para evitar que el header tape el contenido
+                    const headerHeight = document.querySelector('.header').offsetHeight || 80; // fallback si no encuentra header
+                    const targetPosition = targetSection.offsetTop - headerHeight - 60; // 60px extra de espacio
+                    
+                    // Usar scrollIntoView con offset personalizado
+                    const currentScroll = window.pageYOffset;
+                    const targetScroll = targetPosition;
+                    
+                    // Scroll suave manual
+                    const duration = 800; // duración en ms
+                    const start = performance.now();
+                    
+                    function scrollStep(currentTime) {
+                        const elapsed = currentTime - start;
+                        const progress = Math.min(elapsed / duration, 1);
+                        
+                        // Función de easing (suave)
+                        const easeInOutCubic = t => t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+                        const easedProgress = easeInOutCubic(progress);
+                        
+                        window.scrollTo(0, currentScroll + (targetScroll - currentScroll) * easedProgress);
+                        
+                        if (progress < 1) {
+                            requestAnimationFrame(scrollStep);
+                        }
+                    }
+                    
+                    requestAnimationFrame(scrollStep);
                 }
             } else {
                 // Si es un enlace externo, redirige normalmente
@@ -375,13 +395,30 @@ document.addEventListener('DOMContentLoaded', function() {
                 const contactSection = document.querySelector('#contacto');
                 if (contactSection) {
                     // Calcular offset para evitar que el header tape el contenido
-                    const headerHeight = document.querySelector('.header').offsetHeight;
-                    const targetPosition = contactSection.offsetTop - headerHeight - 40; // 40px extra de espacio
+                    const headerHeight = document.querySelector('.header').offsetHeight || 80;
+                    const targetPosition = contactSection.offsetTop - headerHeight - 60;
                     
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
+                    // Scroll suave manual
+                    const currentScroll = window.pageYOffset;
+                    const targetScroll = targetPosition;
+                    const duration = 800;
+                    const start = performance.now();
+                    
+                    function scrollStep(currentTime) {
+                        const elapsed = currentTime - start;
+                        const progress = Math.min(elapsed / duration, 1);
+                        
+                        const easeInOutCubic = t => t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+                        const easedProgress = easeInOutCubic(progress);
+                        
+                        window.scrollTo(0, currentScroll + (targetScroll - currentScroll) * easedProgress);
+                        
+                        if (progress < 1) {
+                            requestAnimationFrame(scrollStep);
+                        }
+                    }
+                    
+                    requestAnimationFrame(scrollStep);
                 }
                 showNotification('Te contactaremos pronto para discutir tu plan personalizado', 'success');
                 return;
