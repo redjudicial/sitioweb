@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (targetSection) {
                     // Calcular offset para evitar que el header tape el contenido
                     const headerHeight = document.querySelector('.header').offsetHeight || 80; // fallback si no encuentra header
-                    const targetPosition = targetSection.offsetTop - headerHeight - 60; // 60px extra de espacio
+                    const targetPosition = targetSection.offsetTop - headerHeight - 20; // 20px extra de espacio
                     
                     // Usar scrollIntoView con offset personalizado
                     const currentScroll = window.pageYOffset;
@@ -396,7 +396,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (contactSection) {
                     // Calcular offset para evitar que el header tape el contenido
                     const headerHeight = document.querySelector('.header').offsetHeight || 80;
-                    const targetPosition = contactSection.offsetTop - headerHeight - 60;
+                    const targetPosition = contactSection.offsetTop - headerHeight - 20;
                     
                     // Scroll suave manual
                     const currentScroll = window.pageYOffset;
