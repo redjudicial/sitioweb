@@ -135,13 +135,15 @@ Host github.com-redjudicial
 - **Solución**: Eliminación del isotipo en todos los archivos HTML
 - **Archivos afectados**: 6 archivos HTML diferentes
 
-**6. PROBLEMA CRÍTICO RESUELTO: Directorio Incorrecto**
-- **Problema**: Deploy copiaba archivos a `/opt/bitnami/wordpress/` 
-- **Realidad**: Apache sirve desde `/opt/bitnami/apache/htdocs/`
-- **Causa**: Configuración incorrecta en el workflow
-- **Solución**: ✅ Corregido workflow para copiar al directorio correcto
-- **Verificación**: ✅ Archivos ahora se copian a `/opt/bitnami/apache/htdocs/`
-- **Resultado**: ✅ Footer sin isotipo funcionando en producción
+**6. PROBLEMA CRÍTICO RESUELTO: Configuración de Virtual Hosts**
+- **Problema inicial**: Deploy copiaba archivos a directorio incorrecto
+- **Problema secundario**: `redjudicial.cl` vs `www.redjudicial.cl` sirven desde directorios diferentes
+- **Arquitectura real**:
+  - `www.redjudicial.cl/index.html` → Sirve desde `/opt/bitnami/apache/htdocs/`
+  - `redjudicial.cl` → Sirve desde `/opt/bitnami/wordpress/` (Virtual Host)
+- **Solución**: ✅ Deploy copia archivos a AMBOS directorios
+- **Verificación**: ✅ Ambos dominios funcionan correctamente
+- **Resultado**: ✅ Footer sin isotipo en `redjudicial.cl` Y `www.redjudicial.cl`
 
 **6. Limpieza de Cache Mejorada**
 - **Problema**: Múltiples plugins de cache (Redis + WP-Optimize)
