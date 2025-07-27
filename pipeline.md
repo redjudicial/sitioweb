@@ -102,9 +102,14 @@ Host github.com-redjudicial
 #### **🔧 Mejoras Recientes (Julio 2025)**
 
 **1. Footer Simplificado**
-- **Cambio**: Eliminación del isotipo del footer
+- **Cambio**: Eliminación del isotipo del footer en TODOS los archivos HTML
 - **Resultado**: Solo "Red Judicial © 2025" para un look más limpio
-- **Archivo**: `index.html`
+- **Archivos corregidos**: 
+  - `index.html` (página principal)
+  - `estudiantes.html` (página estudiantes)
+  - `landing/estudiantes.html` (copia en subcarpeta)
+  - `estudiantes-nuevo.html`, `estudiantes-v2.html`, `estudiantes-final.html` (archivos duplicados)
+- **Problema identificado**: Múltiples archivos HTML con isotipo que se desplegaban
 
 **2. Chatbot Mejorado**
 - **Agregado**: Información completa de planes de estudiantes
@@ -121,10 +126,16 @@ Host github.com-redjudicial
 **4. Cache Busting Forzado**
 - **Problema**: Cloudflare cache muy agresivo (1 año)
 - **Solución**: Actualización de versiones CSS/JS a `?v=20250727`
-- **Archivos**: `index.html` (CSS y JS)
+- **Archivos**: `index.html` y `estudiantes.html` (CSS y JS)
 - **Resultado**: Cambios visibles inmediatamente
 
-**5. Limpieza de Cache Mejorada**
+**5. Problema de Archivos Duplicados**
+- **Problema**: Múltiples archivos HTML con isotipo en footer
+- **Causa**: Archivos duplicados en diferentes carpetas
+- **Solución**: Eliminación del isotipo en todos los archivos HTML
+- **Archivos afectados**: 6 archivos HTML diferentes
+
+**6. Limpieza de Cache Mejorada**
 - **Problema**: Múltiples plugins de cache (Redis + WP-Optimize)
 - **Solución**: Workflow actualizado para limpiar todos los caches
 - **Script manual**: `clear-cache-manual.sh` para limpieza inmediata
