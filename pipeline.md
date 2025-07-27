@@ -56,7 +56,7 @@ Host github.com-redjudicial
 
 ## 📝 Registro de Cambios
 
-### **Última Actualización**: Enero 2025
+### **Última Actualización**: Julio 2025
 
 #### **🔧 Fixes Críticos Implementados**
 
@@ -99,6 +99,31 @@ Host github.com-redjudicial
 - ✅ Formularios adaptables
 - ✅ Navegación móvil mejorada
 
+#### **🔧 Mejoras Recientes (Julio 2025)**
+
+**1. Footer Simplificado**
+- **Cambio**: Eliminación del isotipo del footer
+- **Resultado**: Solo "Red Judicial © 2025" para un look más limpio
+- **Archivo**: `index.html`
+
+**2. Chatbot Mejorado**
+- **Agregado**: Información completa de planes de estudiantes
+- **Contenido**: Planes Gratis, Plus ($4.990/mes), Elite ($9.990/mes)
+- **Funcionalidad**: Contexto automático al abrir el chat
+- **Archivo**: `chat-widget.js`
+
+**3. Animación del Botón Chat**
+- **Implementado**: Animación `rj-bounce-in` cada 15 segundos
+- **Propósito**: Mejorar engagement y llamar la atención
+- **Técnica**: `setInterval(animateBubble, 15000)`
+- **Archivo**: `chat-widget.js`
+
+**4. Cache Busting Forzado**
+- **Problema**: Cloudflare cache muy agresivo (1 año)
+- **Solución**: Actualización de versiones CSS/JS a `?v=20250727`
+- **Archivos**: `index.html` (CSS y JS)
+- **Resultado**: Cambios visibles inmediatamente
+
 ---
 
 ## 🛠️ Configuración Técnica
@@ -134,10 +159,12 @@ SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### **1. Cache y Deploy**
 - **Problema**: Cambios no visibles en producción
+- **Causa**: Cloudflare cache muy agresivo (max-age=31536000 = 1 año)
 - **Solución**: 
-  - Cache busting con `?v=timestamp`
+  - Cache busting con `?v=timestamp` en CSS/JS
   - Limpieza automática de cache WordPress
   - Logging mejorado en GitHub Actions
+  - **IMPORTANTE**: Agregar parámetros de cache busting a todos los recursos estáticos
 
 ### **2. SSH Keys**
 - **Problema**: Prompts de passphrase en deploy
