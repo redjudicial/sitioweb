@@ -137,12 +137,18 @@ Host github.com-redjudicial
 
 **6. PROBLEMA CRÍTICO RESUELTO: Configuración de Virtual Hosts**
 - **Problema inicial**: Deploy copiaba archivos a directorio incorrecto
-- **Problema secundario**: `redjudicial.cl` vs `www.redjudicial.cl` sirven desde directorios diferentes
+- **Problema secundario**: `redjudicial.cl` vs `www.redjudicial.cl` servían contenido diferente
+- **Causa raíz**: Virtual host HTTPS mal configurado (`www.example.com` + `ServerAlias *`)
 - **Arquitectura real**:
-  - `www.redjudicial.cl/index.html` → Sirve desde `/opt/bitnami/apache/htdocs/`
-  - `redjudicial.cl` → Sirve desde `/opt/bitnami/wordpress/` (Virtual Host)
-- **Solución**: ✅ Deploy copia archivos a AMBOS directorios
-- **Verificación**: ✅ Ambos dominios funcionan correctamente
+  - Ambos dominios → Sirven desde `/opt/bitnami/wordpress/` (Virtual Host)
+  - Virtual host HTTP: ✅ Configurado correctamente
+  - Virtual host HTTPS: ❌ Tenía `ServerName www.example.com`
+- **Solución aplicada**:
+  - ✅ Deploy copia archivos a `/opt/bitnami/wordpress/`
+  - ✅ Corregido virtual host HTTPS: `ServerName redjudicial.cl`
+  - ✅ Configurado `ServerAlias www.redjudicial.cl`
+  - ✅ Reiniciado Apache para aplicar cambios
+- **Verificación**: ✅ Ambos dominios sirven contenido idéntico
 - **Resultado**: ✅ Footer sin isotipo en `redjudicial.cl` Y `www.redjudicial.cl`
 
 **6. Limpieza de Cache Mejorada**
