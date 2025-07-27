@@ -53,13 +53,21 @@ jobs:
       - name: Clear WordPress cache
         run: |
           ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "
-            echo '🧹 Limpiando cache...' &&
+            echo '🧹 Limpiando cache WordPress...' &&
             sudo rm -rf /opt/bitnami/wordpress/wp-content/cache/* 2>/dev/null || true &&
             sudo rm -rf /opt/bitnami/wordpress/wp-content/uploads/cache/* 2>/dev/null || true &&
+            sudo rm -rf /opt/bitnami/wordpress/wp-content/wpo-cache/* 2>/dev/null || true &&
+            sudo rm -rf /opt/bitnami/wordpress/wp-content/cache/wpo-cache/* 2>/dev/null || true &&
+            echo '🧹 Limpiando cache Redis...' &&
+            redis-cli FLUSHALL 2>/dev/null || echo 'Redis no disponible' &&
+            echo '🧹 Limpiando cache WP-Optimize...' &&
+            cd /opt/bitnami/wordpress &&
+            wp wpo cache flush --allow-root 2>/dev/null || echo 'WP-Optimize no disponible' &&
             echo '🔄 Reiniciando servicios...' &&
             sudo /opt/bitnami/ctlscript.sh restart apache 2>/dev/null || true &&
             sudo /opt/bitnami/ctlscript.sh restart nginx 2>/dev/null || true &&
-            echo '✅ Cache limpiado y servicios reiniciados'
+            sudo systemctl restart redis 2>/dev/null || echo 'Redis service no disponible' &&
+            echo '✅ Todos los caches limpiados y servicios reiniciados'
           "
 
       - name: Install Node.js dependencies
@@ -111,6 +119,10 @@ jobs:
             echo '=== ✅ VERIFICACIÓN DE DEPLOY ===' &&
             echo '📁 Archivos en WordPress:' &&
             ls -la /opt/bitnami/wordpress/*.html /opt/bitnami/wordpress/*.css /opt/bitnami/wordpress/*.js 2>/dev/null || echo '⚠️ Algunos archivos no encontrados' &&
+            echo '📄 Contenido del footer (últimas 10 líneas):' &&
+            tail -10 /opt/bitnami/wordpress/index.html &&
+            echo '📄 Verificando chat-widget.js:' &&
+            grep -n 'studentPlansInfo' /opt/bitnami/wordpress/chat-widget.js || echo '⚠️ Info de planes no encontrada' &&
             echo '🔄 Estado del backend:' &&
             export PATH=\$PATH:/home/bitnami/.nvm/versions/node/v22.17.1/bin &&
             /home/bitnami/.nvm/versions/node/v22.17.1/bin/pm2 status &&
