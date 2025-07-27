@@ -63,6 +63,17 @@ setTimeout(() => {
     chatInput.focus();
     // Mensaje inicial por defecto
     addMessage('Hola, ¿en qué te puedo ayudar?', 'assistant');
+    
+    // Agregar información de planes de estudiantes al contexto del chat
+    const studentPlansInfo = `
+    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 10px 0; font-size: 14px;">
+      <strong>📚 Planes para Estudiantes de Derecho:</strong><br>
+      <strong>🆓 Plan Gratis:</strong> Apuntes explicativos, foros, grupos especializados, noticias legales, webinars generales, normas legales (búsqueda relacional)<br>
+      <strong>⭐ Plan Plus ($4.990/mes):</strong> Todo lo gratis + base semántica avanzada, simuladores de exámenes (uso limitado), normas legales (búsqueda semántica avanzada), ranking de estudiantes destacados, casos prácticos con corrección guiada<br>
+      <strong>👑 Plan Elite ($9.990/mes):</strong> Todo lo Plus + red nacional de procuradores, simuladores sin límite, base semántica ilimitada en todas las materias, acceso preferente a recursos exclusivos, certificaciones especiales
+    </div>
+    `;
+    chatBody.innerHTML += studentPlansInfo;
   }
 
   function closeModal() {
@@ -76,6 +87,16 @@ setTimeout(() => {
   }
 
   bubble.onclick = openModal;
+
+  // Animación del botón cada 15 segundos
+  function animateBubble() {
+    bubble.style.animation = 'none';
+    bubble.offsetHeight; // Trigger reflow
+    bubble.style.animation = 'rj-bounce-in 1.5s ease-out';
+  }
+  
+  // Iniciar animación cada 15 segundos
+  setInterval(animateBubble, 15000);
 
   // Lógica de chat
   async function sendMessage(e) {
