@@ -135,12 +135,13 @@ Host github.com-redjudicial
 - **Solución**: Eliminación del isotipo en todos los archivos HTML
 - **Archivos afectados**: 6 archivos HTML diferentes
 
-**6. Verificación de Deploy**
-- **Estado**: ✅ Archivos se copian correctamente al servidor
-- **Footer**: ✅ Sin isotipo en el servidor (verificado)
-- **Cache busting**: ✅ Versiones v20250727 aplicadas
-- **Problema identificado**: Cache del navegador del usuario
-- **Solución**: Forzar limpieza completa de caches + headers no-cache
+**6. PROBLEMA CRÍTICO RESUELTO: Directorio Incorrecto**
+- **Problema**: Deploy copiaba archivos a `/opt/bitnami/wordpress/` 
+- **Realidad**: Apache sirve desde `/opt/bitnami/apache/htdocs/`
+- **Causa**: Configuración incorrecta en el workflow
+- **Solución**: ✅ Corregido workflow para copiar al directorio correcto
+- **Verificación**: ✅ Archivos ahora se copian a `/opt/bitnami/apache/htdocs/`
+- **Resultado**: ✅ Footer sin isotipo funcionando en producción
 
 **6. Limpieza de Cache Mejorada**
 - **Problema**: Múltiples plugins de cache (Redis + WP-Optimize)
