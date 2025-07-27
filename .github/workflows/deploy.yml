@@ -40,31 +40,31 @@ jobs:
             echo '📁 Archivos en landing:' &&
             ls -la /home/bitnami/landing/*.css &&
             echo '📁 Copiando archivos...' &&
-            sudo cp /home/bitnami/landing/index.html /opt/bitnami/wordpress/ &&
-            sudo cp /home/bitnami/landing/estudiantes.html /opt/bitnami/wordpress/ &&
-            sudo cp /home/bitnami/landing/*.css /opt/bitnami/wordpress/ &&
-            sudo cp /home/bitnami/landing/*.js /opt/bitnami/wordpress/ &&
-            sudo cp /home/bitnami/landing/*.png /opt/bitnami/wordpress/ 2>/dev/null || true &&
-            sudo chown -R bitnami:daemon /opt/bitnami/wordpress/ &&
-            echo '📁 Archivos en WordPress después de copiar:' &&
-            ls -la /opt/bitnami/wordpress/*.css &&
+            sudo cp /home/bitnami/landing/index.html /opt/bitnami/apache/htdocs/ &&
+            sudo cp /home/bitnami/landing/estudiantes.html /opt/bitnami/apache/htdocs/ &&
+            sudo cp /home/bitnami/landing/*.css /opt/bitnami/apache/htdocs/ &&
+            sudo cp /home/bitnami/landing/*.js /opt/bitnami/apache/htdocs/ &&
+            sudo cp /home/bitnami/landing/*.png /opt/bitnami/apache/htdocs/ 2>/dev/null || true &&
+            sudo chown -R bitnami:daemon /opt/bitnami/apache/htdocs/ &&
+            echo '📁 Archivos en Apache después de copiar:' &&
+            ls -la /opt/bitnami/apache/htdocs/*.css &&
             echo '📄 Verificando archivo de prueba:' &&
             cat /home/bitnami/landing/test-deployment.txt &&
             echo '📄 Verificando footer de index.html:' &&
-            tail -10 /opt/bitnami/wordpress/index.html &&
+            tail -10 /opt/bitnami/apache/htdocs/index.html &&
             echo '📄 Verificando que no hay isotipo en footer:' &&
-            grep -n 'isotipo-small.png' /opt/bitnami/wordpress/index.html || echo '✅ No se encontró isotipo en index.html' &&
-            echo '✅ Archivos copiados exitosamente a WordPress'
+            grep -n 'isotipo-small.png' /opt/bitnami/apache/htdocs/index.html || echo '✅ No se encontró isotipo en index.html' &&
+            echo '✅ Archivos copiados exitosamente a Apache htdocs'
           "
 
       - name: Clear WordPress cache
         run: |
           ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "
-            echo '🧹 Limpiando cache WordPress...' &&
-            sudo rm -rf /opt/bitnami/wordpress/wp-content/cache/* 2>/dev/null || true &&
-            sudo rm -rf /opt/bitnami/wordpress/wp-content/uploads/cache/* 2>/dev/null || true &&
-            sudo rm -rf /opt/bitnami/wordpress/wp-content/wpo-cache/* 2>/dev/null || true &&
-            sudo rm -rf /opt/bitnami/wordpress/wp-content/cache/wpo-cache/* 2>/dev/null || true &&
+            echo '🧹 Limpiando cache Apache...' &&
+            sudo rm -rf /opt/bitnami/apache/htdocs/wp-content/cache/* 2>/dev/null || true &&
+            sudo rm -rf /opt/bitnami/apache/htdocs/wp-content/uploads/cache/* 2>/dev/null || true &&
+            sudo rm -rf /opt/bitnami/apache/htdocs/wp-content/wpo-cache/* 2>/dev/null || true &&
+            sudo rm -rf /opt/bitnami/apache/htdocs/wp-content/cache/wpo-cache/* 2>/dev/null || true &&
             echo '🧹 Limpiando cache Redis...' &&
             redis-cli FLUSHALL 2>/dev/null || echo 'Redis no disponible' &&
             echo '🧹 Limpiando cache WP-Optimize...' &&

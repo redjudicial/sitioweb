@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 if (res.ok) {
                     showNotification('¡Formulario enviado con éxito! Te contactaremos pronto.', 'success');
-                    this.reset();
+            this.reset();
                     // Ocultar campo "otro" si está visible
                     const profesionOtroGroup = document.getElementById('profesion-otro-group');
                     if (profesionOtroGroup) {
