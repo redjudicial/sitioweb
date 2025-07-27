@@ -135,6 +135,13 @@ Host github.com-redjudicial
 - **Solución**: Eliminación del isotipo en todos los archivos HTML
 - **Archivos afectados**: 6 archivos HTML diferentes
 
+**6. Verificación de Deploy**
+- **Estado**: ✅ Archivos se copian correctamente al servidor
+- **Footer**: ✅ Sin isotipo en el servidor (verificado)
+- **Cache busting**: ✅ Versiones v20250727 aplicadas
+- **Problema identificado**: Cache del navegador del usuario
+- **Solución**: Forzar limpieza completa de caches + headers no-cache
+
 **6. Limpieza de Cache Mejorada**
 - **Problema**: Múltiples plugins de cache (Redis + WP-Optimize)
 - **Solución**: Workflow actualizado para limpiar todos los caches
