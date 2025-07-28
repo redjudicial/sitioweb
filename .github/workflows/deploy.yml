@@ -17,11 +17,23 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
+      - name: Verify files exist before deployment
+        run: |
+          echo "🔍 Verificando archivos antes del deploy..."
+          echo "📁 Archivos principales:"
+          ls -la *.html *.css *.js *.png 2>/dev/null || echo "⚠️ Algunos archivos principales no encontrados"
+          echo "📁 Archivos de noticias:"
+          ls -la noticias.html css/noticias.css js/noticias.js 2>/dev/null || echo "⚠️ Algunos archivos de noticias no encontrados"
+          echo "📁 Estructura de directorios:"
+          find . -name "*.html" -o -name "*.css" -o -name "*.js" | head -20
+
       - name: Deploy landing files via SCP
         run: |
+          echo "📤 Desplegando archivos principales..."
           scp -o StrictHostKeyChecking=no \
             index.html \
             estudiantes.html \
+            noticias.html \
             script.js \
             styles.css \
             estudiantes.css \
@@ -34,29 +46,58 @@ jobs:
             isotipo-small.png \
             bitnami@23.22.241.121:/home/bitnami/landing/
 
+      - name: Deploy noticias files via SCP
+        run: |
+          echo "📤 Desplegando archivos de noticias..."
+          # Crear directorios en servidor si no existen
+          ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "
+            mkdir -p /home/bitnami/landing/css /home/bitnami/landing/js
+          "
+          # Copiar archivos de noticias
+          scp -o StrictHostKeyChecking=no \
+            css/noticias.css \
+            bitnami@23.22.241.121:/home/bitnami/landing/css/
+          scp -o StrictHostKeyChecking=no \
+            js/noticias.js \
+            bitnami@23.22.241.121:/home/bitnami/landing/js/
+
       - name: Copy files to WordPress directory
         run: |
           ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "
             echo '📁 Archivos en landing:' &&
             ls -la /home/bitnami/landing/*.css &&
-            echo '📁 Copiando archivos...' &&
+            echo '📁 Archivos de noticias en landing:' &&
+            ls -la /home/bitnami/landing/css/ /home/bitnami/landing/js/ 2>/dev/null || echo '⚠️ Directorios de noticias no encontrados' &&
+            echo '📁 Copiando archivos principales...' &&
             sudo cp /home/bitnami/landing/index.html /opt/bitnami/apache/htdocs/ &&
             sudo cp /home/bitnami/landing/estudiantes.html /opt/bitnami/apache/htdocs/ &&
+            sudo cp /home/bitnami/landing/noticias.html /opt/bitnami/apache/htdocs/ &&
             sudo cp /home/bitnami/landing/*.css /opt/bitnami/apache/htdocs/ &&
             sudo cp /home/bitnami/landing/*.js /opt/bitnami/apache/htdocs/ &&
-            sudo cp /home/bitnami/landing/*.png /opt/bitnami/apache/htdocs/ 2>/dev/null || true &&
+            sudo cp /home/bitnami/landing/*.png /opt/bitnami/apache/htdocs/ 2>/dev/null || echo '⚠️ Algunos archivos PNG no encontrados' &&
+            echo '📁 Copiando archivos de noticias a Apache...' &&
+            sudo mkdir -p /opt/bitnami/apache/htdocs/css /opt/bitnami/apache/htdocs/js &&
+            sudo cp -r /home/bitnami/landing/css/* /opt/bitnami/apache/htdocs/css/ 2>/dev/null || echo '⚠️ No se pudieron copiar archivos CSS de noticias' &&
+            sudo cp -r /home/bitnami/landing/js/* /opt/bitnami/apache/htdocs/js/ 2>/dev/null || echo '⚠️ No se pudieron copiar archivos JS de noticias' &&
             sudo chown -R bitnami:daemon /opt/bitnami/apache/htdocs/ &&
             echo '📁 Copiando TAMBIÉN a WordPress (para redjudicial.cl)...' &&
             sudo cp /home/bitnami/landing/index.html /opt/bitnami/wordpress/ &&
             sudo cp /home/bitnami/landing/estudiantes.html /opt/bitnami/wordpress/ &&
+            sudo cp /home/bitnami/landing/noticias.html /opt/bitnami/wordpress/ &&
             sudo cp /home/bitnami/landing/*.css /opt/bitnami/wordpress/ &&
             sudo cp /home/bitnami/landing/*.js /opt/bitnami/wordpress/ &&
-            sudo cp /home/bitnami/landing/*.png /opt/bitnami/wordpress/ 2>/dev/null || true &&
+            sudo cp /home/bitnami/landing/*.png /opt/bitnami/wordpress/ 2>/dev/null || echo '⚠️ Algunos archivos PNG no encontrados' &&
+            echo '📁 Copiando archivos de noticias a WordPress...' &&
+            sudo mkdir -p /opt/bitnami/wordpress/css /opt/bitnami/wordpress/js &&
+            sudo cp -r /home/bitnami/landing/css/* /opt/bitnami/wordpress/css/ 2>/dev/null || echo '⚠️ No se pudieron copiar archivos CSS de noticias' &&
+            sudo cp -r /home/bitnami/landing/js/* /opt/bitnami/wordpress/js/ 2>/dev/null || echo '⚠️ No se pudieron copiar archivos JS de noticias' &&
             sudo chown -R bitnami:daemon /opt/bitnami/wordpress/ &&
             echo '📁 Archivos en Apache después de copiar:' &&
             ls -la /opt/bitnami/apache/htdocs/*.css &&
             echo '📁 Archivos en WordPress después de copiar:' &&
             ls -la /opt/bitnami/wordpress/*.css &&
+            echo '📁 Archivos de noticias en WordPress:' &&
+            ls -la /opt/bitnami/wordpress/css/ /opt/bitnami/wordpress/js/ 2>/dev/null || echo '⚠️ Directorios de noticias no encontrados en WordPress' &&
             echo '📄 Verificando archivo de prueba:' &&
             cat /home/bitnami/landing/test-deployment.txt &&
             echo '📄 Verificando footer de index.html (Apache):' &&
@@ -65,6 +106,8 @@ jobs:
             tail -10 /opt/bitnami/wordpress/index.html &&
             echo '📄 Verificando que no hay isotipo en footer (WordPress):' &&
             grep -n 'isotipo-small.png' /opt/bitnami/wordpress/index.html || echo '✅ No se encontró isotipo en WordPress index.html' &&
+            echo '📄 Verificando noticias.html en WordPress:' &&
+            head -5 /opt/bitnami/wordpress/noticias.html &&
             echo '✅ Archivos copiados exitosamente a Apache htdocs Y WordPress'
           "
 
@@ -136,9 +179,14 @@ jobs:
       - name: Verify deployment
         run: |
           ssh -o StrictHostKeyChecking=no bitnami@23.22.241.121 "
-            echo '=== ✅ VERIFICACIÓN DE DEPLOY ===' &&
-            echo '📁 Archivos en WordPress:' &&
-            ls -la /opt/bitnami/wordpress/*.html /opt/bitnami/wordpress/*.css /opt/bitnami/wordpress/*.js 2>/dev/null || echo '⚠️ Algunos archivos no encontrados' &&
+            echo '=== ✅ VERIFICACIÓN COMPLETA DE DEPLOY ===' &&
+            echo '📁 Archivos principales en WordPress:' &&
+            ls -la /opt/bitnami/wordpress/*.html /opt/bitnami/wordpress/*.css /opt/bitnami/wordpress/*.js 2>/dev/null || echo '⚠️ Algunos archivos principales no encontrados' &&
+            echo '📁 Archivos de noticias en WordPress:' &&
+            ls -la /opt/bitnami/wordpress/css/noticias.css /opt/bitnami/wordpress/js/noticias.js /opt/bitnami/wordpress/noticias.html 2>/dev/null || echo '⚠️ Archivos de noticias no encontrados' &&
+            echo '📄 Verificando noticias.html:' &&
+            grep -n 'noticias.css' /opt/bitnami/wordpress/noticias.html || echo '⚠️ CSS de noticias no referenciado' &&
+            grep -n 'noticias.js' /opt/bitnami/wordpress/noticias.html || echo '⚠️ JS de noticias no referenciado' &&
             echo '📄 Contenido del footer (últimas 10 líneas):' &&
             tail -10 /opt/bitnami/wordpress/index.html &&
             echo '📄 Verificando chat-widget.js:' &&
@@ -146,5 +194,17 @@ jobs:
             echo '🔄 Estado del backend:' &&
             export PATH=\$PATH:/home/bitnami/.nvm/versions/node/v22.17.1/bin &&
             /home/bitnami/.nvm/versions/node/v22.17.1/bin/pm2 status &&
-            echo '✅ Deploy completado exitosamente'
+            echo '📊 Timestamps de archivos críticos:' &&
+            stat -c '%y %n' /opt/bitnami/wordpress/noticias.html /opt/bitnami/wordpress/css/noticias.css /opt/bitnami/wordpress/js/noticias.js 2>/dev/null || echo '⚠️ No se pudieron verificar timestamps' &&
+            echo '✅ Deploy completado exitosamente - TODOS los archivos incluidos'
           "
+
+      - name: Purge Cloudflare cache
+        run: |
+          echo "🌩️ Purgando cache de Cloudflare..."
+          curl -X POST "https://api.cloudflare.com/client/v4/zones/41a7ba1fa6bff0d03a8ee330f3142e1e/purge_cache" \
+            -H "X-Auth-Email: nicolas.barriga@redjudicial.cl" \
+            -H "X-Auth-Key: c2c39aca7709ff004afb6f7232d73d70ffbcc" \
+            -H "Content-Type: application/json" \
+            --data '{"purge_everything":true}' || echo "⚠️ Error purgando cache de Cloudflare"
+          echo "✅ Cache de Cloudflare purgado"

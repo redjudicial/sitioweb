@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noticias Jurídicas - Red Judicial</title>
+    <meta name="description" content="Noticias jurídicas actualizadas de fuentes oficiales chilenas. Poder Judicial, Tribunal Constitucional, Ministerio de Justicia y más.">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://www.redjudicial.cl/noticias.html">
+    <link rel="alternate" href="https://www.redjudicial.cl/noticias.html" hreflang="es-cl">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Noticias Jurídicas - Red Judicial">
+    <meta property="og:description" content="Noticias jurídicas actualizadas de fuentes oficiales chilenas. Poder Judicial, Tribunal Constitucional, Ministerio de Justicia y más.">
+    <meta property="og:image" content="https://www.redjudicial.cl/logo-original.png">
+    <meta property="og:url" content="https://www.redjudicial.cl/noticias.html">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Noticias Jurídicas - Red Judicial">
+    <meta name="twitter:description" content="Noticias jurídicas actualizadas de fuentes oficiales chilenas.">
+    <meta name="twitter:image" content="https://www.redjudicial.cl/logo-original.png">
+    
+    <!-- DNS Prefetch -->
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="css/noticias.css?v=20250728">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="isotipo-small.png">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav" aria-label="Principal">
+            <div class="nav-container">
+                <div class="logo">
+                    <a href="https://www.redjudicial.cl" aria-label="Ir a página principal">
+                        <img src="logo-original.png" alt="Logo Red Judicial" class="logo-img" loading="lazy">
+                    </a>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html#caracteristicas" class="nav-link">Características</a>
+                    <a href="index.html#planes" class="nav-link">Planes</a>
+                    <a href="index.html#faq" class="nav-link">FAQ</a>
+                    <a href="noticias.html" class="nav-link">Noticias</a>
+                    <a href="/estudiantes.html" class="nav-link">¿Eres Estudiante?</a>
+                    <a href="/acceso/" class="btn-login">Ingreso</a>
+                </div>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="noticias-hero">
+            <div class="container">
+                <h1>Noticias Jurídicas</h1>
+                <p>Información actualizada de fuentes oficiales chilenas. Poder Judicial, Tribunal Constitucional, Ministerio de Justicia y más.</p>
+            </div>
+        </section>
+
+        <!-- Sección de Noticias -->
+        <section class="noticias-seccion">
+            <div class="container">
+                <!-- Controles de filtrado -->
+                <div class="controles-noticias">
+                    <div class="controles-superiores">
+                        <div class="control-grupo">
+                            <label for="fuente-filter">Fuente</label>
+                            <select id="fuente-filter">
+                                <option value="">Todas las fuentes</option>
+                                <option value="poder_judicial">Poder Judicial</option>
+                                <option value="contraloria">Contraloría</option>
+                                <option value="tdpi">Tribunal de Propiedad Industrial</option>
+                                <option value="cde">Consejo de Defensa del Estado</option>
+                                <option value="tdlc">Tribunal de Defensa de la Libre Competencia</option>
+                                <option value="primer_tribunal_ambiental">Primer Tribunal Ambiental</option>
+                                <option value="tercer_tribunal_ambiental">Tercer Tribunal Ambiental</option>
+                                <option value="tribunal_ambiental">Tribunal Ambiental</option>
+                            </select>
+                        </div>
+                        
+                        <div class="control-grupo">
+                            <label for="categoria-filter">Categoría</label>
+                            <select id="categoria-filter">
+                                <option value="">Todas las categorías</option>
+                                <option value="fallos">Fallos</option>
+                                <option value="institucional">Institucional</option>
+                                <option value="penal">Penal</option>
+                                <option value="constitucional">Constitucional</option>
+                                <option value="administrativo">Administrativo</option>
+                                <option value="normativo">Normativo</option>
+                                <option value="ambiental">Ambiental</option>
+                                <option value="competencia">Libre Competencia</option>
+                                <option value="propiedad_industrial">Propiedad Industrial</option>
+                            </select>
+                        </div>
+                        
+                        <div class="control-grupo">
+                            <label for="orden-filter">Ordenar por</label>
+                            <select id="orden-filter">
+                                <option value="fecha_desc">Más recientes</option>
+                                <option value="fecha_asc">Más antiguos</option>
+                                <option value="relevancia">Relevancia</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="controles-inferiores">
+                        <div class="buscador-grupo">
+                            <label for="search-input">Buscar noticias</label>
+                            <input type="text" id="search-input" placeholder="Buscar por título, contenido, fuente...">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Estadísticas -->
+                <div class="estadisticas">
+                    <div class="estadistica">
+                        <i class="fas fa-newspaper"></i>
+                        <span id="total-noticias">0</span> noticias
+                    </div>
+                    <div class="estadistica">
+                        <i class="fas fa-clock"></i>
+                        <span id="ultima-actualizacion">Actualizando...</span>
+                    </div>
+                </div>
+
+                <!-- Loading Spinner -->
+                <div class="loading-spinner" id="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>Cargando noticias...</p>
+                </div>
+
+                <!-- Contenedor de Noticias -->
+                <div class="noticias-container" id="noticias-container">
+                    <!-- Las noticias se cargarán dinámicamente aquí -->
+                </div>
+
+                <!-- Paginación -->
+                <div class="paginacion" id="paginacion">
+                    <!-- La paginación se generará dinámicamente -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer footer-clean">
+        <div class="container">
+            <div class="footer-clean-grid">
+                <div>
+                    <h4>Plataforma</h4>
+                    <ul>
+                        <li><a href="index.html#caracteristicas">Características</a></li>
+                        <li><a href="index.html#planes">Planes</a></li>
+                        <li><a href="index.html#faq">FAQ</a></li>
+                        <li><a href="/estudiantes.html">Estudiantes</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Comunidad</h4>
+                    <ul>
+                        <li><a href="#">Webinars</a></li>
+                        <li><a href="noticias.html">Noticias</a></li>
+                        <li><a href="#">Consulta Abierta</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="https://www.redjudicial.cl/privacidad/">Política de Privacidad</a></li>
+                        <li><a href="https://www.redjudicial.cl/terminos-de-servicio/">Términos de Servicio</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Proveedores</h4>
+                    <ul>
+                        <li><a href="#agendajudicial">Agenda Judicial</a></li>
+                        <li><a href="#capacitaciones">Capacitaciones</a></li>
+                        <li><a href="#simpley">Simpley</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li><a href="mailto:contacto@redjudicial.cl">contacto@redjudicial.cl</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom-flex">
+                <span>Red Judicial © 2025</span>
+                <ul class="footer-socials">
+                    <li><a href="https://www.linkedin.com/company/somosredjudicial" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a></li>
+                    <li><a href="https://www.instagram.com/somosredjudicial" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
+                    <li><a href="https://www.facebook.com/somosredjudicial" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a href="https://www.tiktok.com/@somosredjudcial" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a></li>
+                    <li><a href="https://www.youtube.com/@somosredjudicial" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a></li>
+                    <li><a href="mailto:contacto@redjudicial.cl" aria-label="Email"><i class="fas fa-envelope"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/noticias.js?v=20250728" defer></script>
+</body>
+</html> 
