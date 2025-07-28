@@ -285,6 +285,7 @@ function mostrarError(mensaje) {
 
 // Obtener nombre de fuente para mostrar
 function getFuenteDisplayName(fuente) {
+    console.log("🔍 getFuenteDisplayName llamado con:", fuente);
     const fuentes = {
         'poder_judicial': 'Poder Judicial',
         'contraloria': 'Contraloría',
