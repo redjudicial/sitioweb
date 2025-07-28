@@ -11,7 +11,6 @@ const noticiasPorPagina = 12;
 // Elementos del DOM
 const contenedorNoticias = document.getElementById('noticias-container');
 const filtroFuente = document.getElementById('fuente-filter');
-const filtroCategoria = document.getElementById('categoria-filter');
 const ordenSelect = document.getElementById('orden-filter');
 const buscador = document.getElementById('search-input');
 const paginacion = document.getElementById('paginacion');
@@ -44,6 +43,9 @@ async function cargarNoticias() {
         noticias = await response.json();
         noticiasFiltradas = [...noticias];
         
+        // Aplicar ordenamiento por defecto (más recientes primero)
+        aplicarOrdenamiento();
+        
         actualizarEstadisticas();
         mostrarNoticias();
         
@@ -60,9 +62,6 @@ function configurarEventos() {
     // Filtros
     if (filtroFuente) {
         filtroFuente.addEventListener('change', aplicarFiltros);
-    }
-    if (filtroCategoria) {
-        filtroCategoria.addEventListener('change', aplicarFiltros);
     }
     if (ordenSelect) {
         ordenSelect.addEventListener('change', aplicarOrdenamiento);
@@ -81,17 +80,11 @@ function configurarEventos() {
 // Aplicar filtros
 function aplicarFiltros() {
     const fuenteSeleccionada = filtroFuente ? filtroFuente.value : '';
-    const categoriaSeleccionada = filtroCategoria ? filtroCategoria.value : '';
     const terminoBusqueda = buscador ? buscador.value.toLowerCase() : '';
     
     noticiasFiltradas = noticias.filter(noticia => {
         // Filtro por fuente
         if (fuenteSeleccionada && noticia.fuente !== fuenteSeleccionada) {
-            return false;
-        }
-        
-        // Filtro por categoría
-        if (categoriaSeleccionada && noticia.categoria !== categoriaSeleccionada) {
             return false;
         }
         
@@ -164,25 +157,16 @@ function mostrarNoticias() {
 
 // Crear elemento de noticia
 function crearElementoNoticia(noticia) {
-    const fecha = new Date(noticia.fecha_publicacion).toLocaleDateString('es-CL', {
+    // Usar fecha_actualizacion si existe, sino fecha_publicacion
+    const fechaNoticia = noticia.fecha_actualizacion || noticia.fecha_publicacion;
+    const fecha = new Date(fechaNoticia).toLocaleDateString('es-CL', {
         year: 'numeric',
         month: 'long',
         day: 'numeric'
     });
 
     const fuenteDisplay = getFuenteDisplayName(noticia.fuente);
-    const categoriaDisplay = noticia.categoria || 'General';
-    
-    // Usar resumen ejecutivo o generar uno básico
-    let resumen = noticia.resumen_ejecutivo || 'Sin resumen disponible';
-    
-    // Asegurar que el resumen no esté cortado
-    if (resumen.includes('...') && resumen.length > 200) {
-        resumen = resumen.substring(0, 200).trim();
-        if (!resumen.endsWith('.')) {
-            resumen += '.';
-        }
-    }
+    const resumen = noticia.resumen_ejecutivo || 'Sin resumen disponible';
 
     return `
         <article class="noticia">
@@ -193,7 +177,6 @@ function crearElementoNoticia(noticia) {
                         <i class="far fa-calendar-alt"></i>
                         ${fecha}
                     </span>
-                    <span class="noticia-categoria">${categoriaDisplay}</span>
                 </div>
                 <h3 class="noticia-titulo">
                     <a href="${noticia.url_origen}" target="_blank" rel="noopener noreferrer">
@@ -308,8 +291,8 @@ function getFuenteDisplayName(fuente) {
         'tdpi': 'Tribunal de Propiedad Industrial',
         'cde': 'Consejo de Defensa del Estado',
         'tdlc': 'Tribunal de Defensa de la Libre Competencia',
-        'primer_tribunal_ambiental': 'Primer Tribunal Ambiental',
-        'tercer_tribunal_ambiental': 'Tercer Tribunal Ambiental',
+        '1ta': 'Tribunal Ambiental',
+        '3ta': 'Tribunal Ambiental',
         'tribunal_ambiental': 'Tribunal Ambiental',
         'ministerio_justicia': 'Ministerio de Justicia'
     };
