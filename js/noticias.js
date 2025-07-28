@@ -183,22 +183,6 @@ function crearElementoNoticia(noticia) {
             resumen += '.';
         }
     }
-    
-    // Extraer palabras clave (máximo 3)
-    let palabrasClave = [];
-    if (noticia.palabras_clave && Array.isArray(noticia.palabras_clave)) {
-        palabrasClave = noticia.palabras_clave.slice(0, 3);
-    } else if (noticia.etiquetas && Array.isArray(noticia.etiquetas)) {
-        palabrasClave = noticia.etiquetas.slice(0, 3);
-    }
-    
-    // Generar HTML de palabras clave
-    const palabrasClaveHTML = palabrasClave.length > 0 
-        ? `<div class="noticia-palabras-clave">
-             <span class="palabras-clave-label">Palabras clave:</span>
-             ${palabrasClave.map(palabra => `<span class="palabra-clave">${palabra}</span>`).join('')}
-           </div>`
-        : '';
 
     return `
         <article class="noticia">
@@ -221,7 +205,6 @@ function crearElementoNoticia(noticia) {
                 <div class="noticia-resumen">
                     <p>${resumen}</p>
                 </div>
-                ${palabrasClaveHTML}
                 <div class="noticia-footer">
                     <a href="${noticia.url_origen}" target="_blank" rel="noopener noreferrer" class="btn-ver-mas">
                         <i class="fas fa-external-link-alt"></i>
