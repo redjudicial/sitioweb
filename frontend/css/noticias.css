@@ -585,9 +585,11 @@ body {
 
 /* Footer */
 .footer {
-    background: var(--primary-color);
+    background: #2d3748;
     color: white;
     padding: 3rem 0 1rem;
+    position: relative;
+    z-index: 1;
 }
 
 .footer-clean-grid {
