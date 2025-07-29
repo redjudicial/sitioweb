@@ -380,11 +380,7 @@ body {
     margin: 0;
     line-height: 1.6;
     color: var(--text-secondary);
-    display: -webkit-box;
-    -webkit-line-clamp: 8;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    /* Removido el corte de líneas para mostrar resumen completo */
 }
 
 .noticia-etiquetas {
